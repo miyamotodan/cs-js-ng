@@ -1,12 +1,15 @@
 <html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
 <body>
 
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-                <strong>BS</strong>
+                <h3>Graph Editor</h3>
+                <strong>GE</strong>
             </div>
 
             <ul class="list-unstyled components">
@@ -30,7 +33,7 @@
                 <li>
                     <a href="#">
                         <i class="fas fa-briefcase"></i>
-                        About
+                        Settings
                     </a>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fas fa-copy"></i>
@@ -68,6 +71,7 @@
                 </li>
             </ul>
 
+            <!--
             <ul class="list-unstyled CTAs">
                 <li>
                     <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
@@ -76,6 +80,7 @@
                     <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
                 </li>
             </ul>
+          -->
         </nav>
 
         <!-- Page Content  -->
@@ -84,9 +89,9 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light">
                         <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
+                        <!--<span>Toggle Sidebar</span>-->
                     </button>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
@@ -94,6 +99,7 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!--
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">Page</a>
@@ -108,6 +114,7 @@
                                 <a class="nav-link" href="#">Page</a>
                             </li>
                         </ul>
+                      -->
                     </div>
                 </div>
             </nav>
@@ -133,7 +140,38 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             -->
 
-            <app-cscomp></app-cscomp>
+            <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100">
+              <div class="col-11 hidden-md-down">
+                <app-cscomp></app-cscomp>
+              </div>
+              <div class="col-1">
+
+
+      <!-- Card -->
+      <div class="card text-white bg-secondary text-center mb-2">
+        <div class="card-header m-0 p-1"><span class="fas fa-circle fa-2x"></span> Nodi</div>
+          <div class="card-body m-0 p-2">
+              <!--<h4 class="card-title display-3">6</h4>-->
+                <h1 class="card-text display-5">6</h1>
+          </div>
+      </div>
+      <!-- Card -->
+
+      <!-- Card -->
+      <div class="card text-white bg-secondary text-center">
+        <div class="card-header m-0 p-1"><span class="fas fa-draw-polygon fa-2x"></span> Archi</div>
+          <div class="card-body m-0 p-2">
+              <!--<h4 class="card-title display-3">6</h4>-->
+                <h1 class="card-text display-5">5</h1>
+          </div>
+      </div>
+      <!-- Card -->
+
+
+              </div>
+            </div>
+          </div>
 
         </div>
     </div>
