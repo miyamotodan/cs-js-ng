@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CscompComponent } from './cscomp/cscomp.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CscompComponent
+    CscompComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
