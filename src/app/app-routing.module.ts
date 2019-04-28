@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
 
-
+ 
 {path: '', redirectTo: '/cytoscape', pathMatch: 'full'},
 {path: 'cytoscape' , component: CscompComponent},
 {path: 'settings' , component: SettingsComponent}
