@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GraphRestApiService } from '../shared/graph-rest-api.service';
 
 import * as cs from 'cytoscape';
 import * as cscola from 'cytoscape-cola';
@@ -19,23 +20,23 @@ export class CscompComponent implements OnInit {
   private sourceNode = null;
   private position = null;
 
-  private graph = [
-    // nodes
-    { data: { id: 'a', weight: 75  } },
-    { data: { id: 'b', weight: 15  } },
-    { data: { id: 'c', weight: 10  } },
-    { data: { id: 'd', weight: 90  } },
-    { data: { id: 'e', weight: 30  } },
-    { data: { id: 'f', weight: 75  } },
-    // edges
-    { data: { id: 'a-b', source: 'a', target: 'b' } },
-    { data: { id: 'c-d', source: 'c', target: 'd' } },
-    { data: { id: 'e-f', source: 'e', target: 'f' } },
-    { data: { id: 'a-c', source: 'a', target: 'c' } },
-    { data: { id: 'b-e', source: 'b', target: 'e' } }
-  ];
+  private graph = null;
 
-  constructor() { }
+  constructor(public restApi: GraphRestApiService) { 
+
+    //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
+    this.restApi.getGraphs().subscribe((data: {}) => {
+
+      //per ora prendo il primo grafo
+      this.graph = data[0].graph;
+      //aggiungo gli elementi al grafo corrente
+      this.cy.add(this.graph);
+      //dispongo il grafo in modo random
+      this.cy.layout({name: 'random'}).run();
+
+    });  
+
+  }
 
   ngOnInit() {
 
