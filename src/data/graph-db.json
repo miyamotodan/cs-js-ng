@@ -1,0 +1,23 @@
+{
+  "graphs": [
+    {"id": 1, "name": "test", "graph" : [
+
+	    { "data": { "id": "a", "weight": 75  } },
+	    { "data": { "id": "b", "weight": 15  } },
+	    { "data": { "id": "c", "weight": 10  } },
+	    { "data": { "id": "d", "weight": 90  } },
+	    { "data": { "id": "e", "weight": 30  } },
+	    { "data": { "id": "f", "weight": 75  } },
+      { "data": { "id": "altro", "weight": 50  } },
+	    { "data": { "id": "a-b", "source": "a", "target": "b" } },
+	    { "data": { "id": "c-d", "source": "c", "target": "d" } },
+	    { "data": { "id": "e-f", "source": "e", "target": "f" } },
+	    { "data": { "id": "a-c", "source": "a", "target": "c" } },
+      { "data": { "id": "b-altro", "source": "b", "target": "altro" } },
+	    { "data": { "id": "b-e", "source": "b", "target": "e" } }
+
+    	]
+
+    }
+  ]
+}
