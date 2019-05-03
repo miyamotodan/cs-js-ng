@@ -15,14 +15,20 @@ cs.use(csctxm);
 })
 export class CscompComponent implements OnInit {
 
+  //cytoscape
   private cy: cs.Core;
+
+  //gestione della creazione di un arco
   private drawMode = false;
   private sourceNode = null;
+
+  //posizione del mouse
   private position = null;
 
+  //archi e nodi del grafo
   private graph = null;
 
-  constructor(public restApi: GraphRestApiService) { 
+  constructor(public restApi: GraphRestApiService) {
 
     //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.getGraphs().subscribe((data: {}) => {
@@ -34,7 +40,17 @@ export class CscompComponent implements OnInit {
       //dispongo il grafo in modo random
       this.cy.layout({name: 'random'}).run();
 
-    });  
+    });
+
+  }
+
+
+  //ridimensiona il canvas del grafo
+  //TODO:bisogna provarla chiamandola dal componente padre
+  resetCySize = () => {
+
+    this.cy.resize();
+    this.cy.fit();
 
   }
 
@@ -183,6 +199,7 @@ export class CscompComponent implements OnInit {
 
     });
 
+    //memorizza la posizione del mouse
     this.cy.bind("mousemove", function(e){this.position = e.position;});
 
     /**

@@ -1,3 +1,5 @@
+
+//struttura per salvare il grafo e dialogare con le API
 export class Graph {
 
     graph   : Object; // struttura json che contienen nodi e archi

@@ -8,6 +8,13 @@ import * as $ from 'jquery';
 })
 export class AppComponent {
 
+//bottone di salvataggio del grafo
+save = () => {
+
+    alert("save");
+    
+};
+
 ngOnInit() {
 
   console.log("init");

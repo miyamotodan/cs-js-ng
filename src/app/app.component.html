@@ -94,9 +94,9 @@
                         <span class="ml-1">Toggle Sidebar</span>
                     </button>
 
-                    <button type="button" id="export" class="btn btn-light mr-2">
+                    <button type="button" id="export" class="btn btn-light mr-2" (click)="save()">
                         <i class="fas fa-download"></i>
-                        <span class="ml-1">Export</span>
+                        <span class="ml-1">Save</span>
                     </button>
 
                     <button type="button" id="export" class="btn btn-light">
@@ -106,7 +106,7 @@
 
                     <button type="button" id="export" class="btn btn-light" data-toggle="collapse" data-target="#collapseThree">
                         <i class="fas fa-star"></i>
-                        <span class="ml-1">Load</span>
+                        <span class="ml-1">Export</span>
                     </button>
 
 <!--
@@ -171,13 +171,8 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             -->
 
-            <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100">
-              <div class="col-12 hidden-md-down">
-                <router-outlet></router-outlet>
-              </div>
-            </div>
-            </div>
+
+            <router-outlet></router-outlet>
 
         </div>
     </div>
