@@ -89,7 +89,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-light mr-2">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light mr-2" (click)="collapse()">
                         <i class="fas fa-align-left"></i>
                         <span class="ml-1">Toggle Sidebar</span>
                     </button>
@@ -172,7 +172,7 @@
             -->
 
 
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
 
         </div>
     </div>

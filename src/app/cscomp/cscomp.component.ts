@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphRestApiService } from '../shared/graph-rest-api.service';
 
+import * as $ from 'jquery';
 import * as cs from 'cytoscape';
 import * as cscola from 'cytoscape-cola';
 import * as csctxm from 'cytoscape-cxtmenu';
@@ -17,6 +18,8 @@ export class CscompComponent implements OnInit {
 
   //cytoscape
   private cy: cs.Core;
+  
+  private lyo: cs.Layout;
 
   //gestione della creazione di un arco
   private drawMode = false;
@@ -46,12 +49,18 @@ export class CscompComponent implements OnInit {
 
 
   //ridimensiona il canvas del grafo
-  //TODO:bisogna provarla chiamandola dal componente padre
   resetCySize = () => {
+
+    let rect=this.cy.container().getBoundingClientRect()
+    //console.log(rect);
+    //console.log("1 - cscomp.resize cy.w:"+rect.width+", cy.h:"+rect.height);
 
     this.cy.resize();
     this.cy.fit();
+    //this.lyo.run();
 
+    //console.log("2 - cscomp.resize cy.w:"+this.cy.width()+", cy.h:"+this.cy.height());
+    
   }
 
   ngOnInit() {
@@ -110,11 +119,11 @@ export class CscompComponent implements OnInit {
     //reimposta il layout
     let resetLayout = () => {
 
-      var layout = this.cy.layout({
+      this.lyo = this.cy.layout({
             name: 'cola'
       });
 
-      layout.run();
+      this.lyo.run();
 
     };
 
@@ -194,7 +203,7 @@ export class CscompComponent implements OnInit {
       textureOnViewport: false,
       motionBlur: false,
       motionBlurOpacity: 0.2,
-      wheelSensitivity: 1,
+      wheelSensitivity: 0.1,
       pixelRatio: 'auto'
 
     });
@@ -382,5 +391,10 @@ export class CscompComponent implements OnInit {
       let menuBackground = this.cy.cxtmenu( defaultsBackground );
 
   };
+
+  getCy() {
+    console.log("getCy:"+this.cy);
+    return this.cy;
+  }
 
 }
