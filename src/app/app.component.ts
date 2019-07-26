@@ -17,11 +17,21 @@ private child:CscompComponent;
 private cy: cs.core;
 
 
-//bottone di salvataggio del grafo
+//bottone di salvataggio 
 save = () => {
 
-    alert("save");
+    //alert("app.save()");
+    //chiamo il metodo save del componente attualmente caricato nella router-applet
+    this.child.save();
     
+};
+
+//bottone di caricamento 
+load = () => {
+
+  //chiamo il metodo load del componente attualmente caricato nella router-applet
+  this.child.load();
+  
 };
 
 onActivate(componentRef){

@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 import * as cs from 'cytoscape';
 import * as cscola from 'cytoscape-cola';
 import * as csctxm from 'cytoscape-cxtmenu';
+import { Graph } from '../shared/graph';
 
 cs.use(cscola);
 cs.use(csctxm);
@@ -30,22 +31,58 @@ export class CscompComponent implements OnInit {
 
   //archi e nodi del grafo
   private graph = null;
+  private graphName = "";
+  private graphId = "";
 
   constructor(public restApi: GraphRestApiService) {
 
+    this.load();
+
+  }
+
+  save() {
+
+    //alert ('cscomp.save()')
+
+    //console.log(this.cy.elements().jsons());
+
+    var g:Graph = new Graph();
+    g.graph  = this.cy.elements().jsons();
+    g.id = "1";
+    g.name = "nome";
+
+    //funzione che attende il salvataggio dei dati facendo una subscribe al metodo che ritorna un promise
+    this.restApi.updateGraph(g.id,g).subscribe((data: {}) => {
+
+      console.log(this.graph);
+      console.log(data);
+
+    });
+    
+    
+  }
+
+  load() {
+    
     //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.getGraphs().subscribe((data: {}) => {
 
+      this.cy.elements().remove();
       //per ora prendo il primo grafo
       this.graph = data[0].graph;
+      this.graphId = data[0].id;
+      this.graphName = data[0].name
+      console.log("cscomp.load : "+this.graphId+", "+this.graphName+", "+this.graph.length);
+
       //aggiungo gli elementi al grafo corrente
       this.cy.add(this.graph);
       //dispongo il grafo in modo random
-      this.cy.layout({name: 'random'}).run();
+      //this.cy.layout({name: 'random'}).run();
 
     });
 
   }
+
 
 
   //ridimensiona il canvas del grafo
@@ -56,6 +93,7 @@ export class CscompComponent implements OnInit {
     //console.log("1 - cscomp.resize cy.w:"+rect.width+", cy.h:"+rect.height);
 
     this.cy.resize();
+    //this.cy.reset();
     this.cy.fit();
     //this.lyo.run();
 

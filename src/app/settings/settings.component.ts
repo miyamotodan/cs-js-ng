@@ -12,4 +12,12 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
 
+  save() {
+    alert("settings.save()");
+  }
+
+  load() {
+    alert("settings.load()");
+  }
+
 }
