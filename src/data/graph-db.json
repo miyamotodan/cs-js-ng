@@ -5,11 +5,13 @@
         {
           "data": {
             "id": "a",
-            "weight": 75
+            "weight": 75,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 808.1173844255767,
-            "y": 245.32897824454577
+            "x": 399.11897206551913,
+            "y": 231.73541089696104
           },
           "group": "nodes",
           "removed": false,
@@ -22,11 +24,13 @@
         {
           "data": {
             "id": "b",
-            "weight": 15
+            "weight": 15,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 398.49127881530796,
-            "y": 241.12504005479556
+            "x": 411.09530082922385,
+            "y": 347.6757581125148
           },
           "group": "nodes",
           "removed": false,
@@ -39,11 +43,13 @@
         {
           "data": {
             "id": "c",
-            "weight": 10
+            "weight": 10,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 635.8237191296606,
-            "y": 244.1846377411906
+            "x": 487.15128109860797,
+            "y": 156.67265865407992
           },
           "group": "nodes",
           "removed": false,
@@ -56,11 +62,13 @@
         {
           "data": {
             "id": "d",
-            "weight": 90
+            "weight": 90,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 530.8429321869656,
-            "y": 435.231111101628
+            "x": 572.1244669751699,
+            "y": 238.3539503196524
           },
           "group": "nodes",
           "removed": false,
@@ -73,11 +81,13 @@
         {
           "data": {
             "id": "e",
-            "weight": 30
+            "weight": 30,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 232.87920835094312,
-            "y": 244.3561680341208
+            "x": 529.9233280370042,
+            "y": 349.69347910988307
           },
           "group": "nodes",
           "removed": false,
@@ -90,11 +100,13 @@
         {
           "data": {
             "id": "f",
-            "weight": 75
+            "weight": 75,
+            "type": "node",
+            "class": "standard"
           },
           "position": {
-            "x": 529.6574855327102,
-            "y": 87.16633004960609
+            "x": 588.9958956579258,
+            "y": 436.22905673131896
           },
           "group": "nodes",
           "removed": false,
@@ -106,43 +118,11 @@
         },
         {
           "data": {
-            "id": "1124",
-            "weight": "20"
-          },
-          "position": {
-            "x": 528.4117227363918,
-            "y": 245.71020980375033
-          },
-          "group": "nodes",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "1543",
-            "weight": "20"
-          },
-          "position": {
-            "x": 111.51026448422078,
-            "y": 243.00637645394605
-          },
-          "group": "nodes",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "1124-d",
-            "source": "1124",
-            "target": "d"
+            "id": "a-b",
+            "source": "a",
+            "target": "b",
+            "type": "edge",
+            "class": "standard"
           },
           "position": {
             "x": 0,
@@ -160,7 +140,9 @@
           "data": {
             "id": "c-d",
             "source": "c",
-            "target": "d"
+            "target": "d",
+            "type": "edge",
+            "class": "standard"
           },
           "position": {
             "x": 0,
@@ -178,7 +160,9 @@
           "data": {
             "id": "e-f",
             "source": "e",
-            "target": "f"
+            "target": "f",
+            "type": "edge",
+            "class": "standard"
           },
           "position": {
             "x": 0,
@@ -196,7 +180,9 @@
           "data": {
             "id": "a-c",
             "source": "a",
-            "target": "c"
+            "target": "c",
+            "type": "edge",
+            "class": "standard"
           },
           "position": {
             "x": 0,
@@ -214,6 +200,26 @@
           "data": {
             "id": "b-e",
             "source": "b",
+            "target": "e",
+            "type": "edge",
+            "class": "standard"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "d-e",
+            "source": "d",
             "target": "e"
           },
           "position": {
@@ -230,9 +236,26 @@
         },
         {
           "data": {
-            "id": "1124-f",
-            "source": "1124",
-            "target": "f"
+            "id": "1688",
+            "weight": "20"
+          },
+          "position": {
+            "x": 490.5907553365502,
+            "y": 269.6396861755901
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "1688-e",
+            "source": "1688",
+            "target": "e"
           },
           "position": {
             "x": 0,
@@ -248,26 +271,8 @@
         },
         {
           "data": {
-            "id": "f-a",
-            "source": "f",
-            "target": "a"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "b-d",
-            "source": "b",
+            "id": "1688-d",
+            "source": "1688",
             "target": "d"
           },
           "position": {
@@ -284,27 +289,9 @@
         },
         {
           "data": {
-            "id": "1543-1543",
-            "source": "1543",
-            "target": "1543"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "1543-e",
-            "source": "1543",
-            "target": "e"
+            "id": "1688-a",
+            "source": "1688",
+            "target": "a"
           },
           "position": {
             "x": 0,

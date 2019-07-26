@@ -1,0 +1,22 @@
+{
+	"graphs": [{
+		"id":1,
+		"name":"test",
+		"graph": [
+			{ "data": { "id": "a", "weight": 75, "type":"node", "class":"standard"  } },
+			{ "data": { "id": "b", "weight": 15, "type":"node", "class":"standard"  } },
+			{ "data": { "id": "c", "weight": 10, "type":"node", "class":"standard"  } },
+			{ "data": { "id": "d", "weight": 90, "type":"node", "class":"standard"  } },
+			{ "data": { "id": "e", "weight": 30, "type":"node", "class":"standard"  } },
+			{ "data": { "id": "f", "weight": 75, "type":"node", "class":"standard"  } },
+			
+			{ "data": { "id": "a-b", "source": "a", "target": "b", "type":"edge", "class":"standard"} },
+			{ "data": { "id": "c-d", "source": "c", "target": "d", "type":"edge", "class":"standard"} },
+			{ "data": { "id": "e-f", "source": "e", "target": "f", "type":"edge", "class":"standard"} },
+			{ "data": { "id": "a-c", "source": "a", "target": "c", "type":"edge", "class":"standard"} },
+			{ "data": { "id": "b-e", "source": "b", "target": "e", "type":"edge", "class":"standard"} }
+			]
+		}    
+	]
+
+}
