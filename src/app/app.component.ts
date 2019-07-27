@@ -16,6 +16,11 @@ private child:CscompComponent;
 //cytoscape
 private cy: cs.core;
 
+//bottone di export
+export = () =>  {
+
+    this.child.export();
+}
 
 //bottone di salvataggio 
 save = () => {

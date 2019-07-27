@@ -34,10 +34,18 @@ export class CscompComponent implements OnInit {
   private graphName = "";
   private graphId = "";
 
+  private totNodes = 0;
+  private totEdges=0;
+  private meanCluster=0;
+
   constructor(public restApi: GraphRestApiService) {
 
     this.load();
 
+  }
+
+  export() {
+    alert('cscomp.export()');
   }
 
   save() {
@@ -79,11 +87,18 @@ export class CscompComponent implements OnInit {
       //dispongo il grafo in modo random
       //this.cy.layout({name: 'random'}).run();
 
+      this.computeValues();
+
     });
 
   }
 
-
+  //calcolo dei valori riassuntivi del grafo
+  computeValues = () => {
+    this.totEdges=this.cy.edges().length;
+    this.totNodes=this.cy.nodes().length;
+    this.meanCluster=-1;
+  }
 
   //ridimensiona il canvas del grafo
   resetCySize = () => {
@@ -117,6 +132,7 @@ export class CscompComponent implements OnInit {
             var eles = ele.cy().add([
                                 { group: 'edges', data: { id: edgeId, source:this.sourceNode.id(), target: ele.id() } }
                             ]);
+            computeValues();
             resetDraw();
         } else {
 
@@ -164,6 +180,8 @@ export class CscompComponent implements OnInit {
       this.lyo.run();
 
     };
+
+    let computeValues = this.computeValues;
 
     this.cy = cs({
 
@@ -307,6 +325,7 @@ export class CscompComponent implements OnInit {
               console.log( ele.id() ) // `ele` holds the reference to the active element
               //cancellazione del nodo
               ele.cy().remove( ele );
+              computeValues();
               resetDraw();
             },
             enabled: true // whether the command is selectable
@@ -358,6 +377,7 @@ export class CscompComponent implements OnInit {
               console.log( ele.id() ) // `ele` holds the reference to the active element
               //cancellazione dell'arco
               ele.cy().remove( ele );
+              computeValues();
             },
             enabled: true // whether the command is selectable
           }
@@ -406,6 +426,7 @@ export class CscompComponent implements OnInit {
                 var eles = this.add([
                   { group: 'nodes', data: { id: nodeId , weight: '20'}, renderedPosition: pos }
                 ]);
+                computeValues();                
             },
             enabled: true // whether the command is selectable
           }
@@ -429,10 +450,5 @@ export class CscompComponent implements OnInit {
       let menuBackground = this.cy.cxtmenu( defaultsBackground );
 
   };
-
-  getCy() {
-    console.log("getCy:"+this.cy);
-    return this.cy;
-  }
 
 }

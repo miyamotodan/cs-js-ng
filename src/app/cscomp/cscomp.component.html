@@ -5,8 +5,9 @@
         <div id="cy"></div>
     </div>
     <div class="col-2">
-        <app-card name="Nodi" icon="fas fa-circle fa-1x"></app-card>
-        <app-card name="Archi" icon="fas fa-draw-polygon fa-1x"></app-card>
+        <app-card [value]="totNodes" name="Nodi" icon="fas fa-circle fa-1x"></app-card>
+        <app-card [value]="totEdges" name="Archi" icon="fas fa-draw-polygon fa-1x"></app-card>
+        <app-card [value]="meanCluster" name="<Cluster>" icon="fas fa-star-of-life fa-1x"></app-card>
     </div>
   </div>
 </div>
