@@ -5,9 +5,56 @@
         <div id="cy"></div>
     </div>
     <div class="col-2">
-        <app-card [value]="totNodes" name="Nodi" icon="fas fa-circle fa-1x"></app-card>
-        <app-card [value]="totEdges" name="Archi" icon="fas fa-draw-polygon fa-1x"></app-card>
-        <app-card [value]="meanCluster" name="<Cluster>" icon="fas fa-star-of-life fa-1x"></app-card>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header mb-0 pb-0 pt-0 mt-0" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    conteggi
+                  </button>
+                </h2>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body p-2 m-0">
+                    <app-card [value]="totNodes" name="Nodi" icon="fas fa-circle fa-1x"></app-card>
+                    <app-card [value]="totEdges" name="Archi" icon="fas fa-draw-polygon fa-1x"></app-card>
+                    <app-card [value]="meanCluster" name="<Cluster>" icon="fas fa-star-of-life fa-1x"></app-card>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header mb-0 pb-0 pt-0 mt-0" id="headingTwo" >
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    dati
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body p-2 m-0">
+                  
+                    <!---
+                    <form>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">field 1</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter value">
+                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                    </form>
+                    -->
+
+                    <app-csform></app-csform>
+                </div>
+              </div>
+            </div>
+          </div>
+
     </div>
   </div>
 </div>
