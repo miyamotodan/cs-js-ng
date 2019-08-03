@@ -1,6 +1,24 @@
-<json-schema-form
-  loadExternalAssets="true"
-  [schema]="schema"
-  framework="material-design"
-  (onSubmit)="yourOnSubmitFn($event)">
-</json-schema-form>
+<div *ngIf="active; else elseBlock">
+  <!--Content to render when condition is true.-->
+
+  <json-schema-form
+    [schema]="schema"
+    [(data)]="data"
+    language="it"
+    framework="material-design"
+    (onSubmit)="submit($event)">
+  <!--  loadExternalAssets="true"
+    [layout]="yourJsonFormLayout"
+    [options]="yourFormOptions"
+    [widgets]="yourCustomWidgets"
+    (onChanges)="yourOnChangesFn($event)"
+    (isValid)="yourIsValidFn($event)"
+    (validationErrors)="yourValidationErrorsFn($event)"
+  -->
+  </json-schema-form>
+
+</div>
+<ng-template #elseBlock>
+  <!--Content to render when condition is false.-->
+  <span class="mat-body">no data</span>
+</ng-template>

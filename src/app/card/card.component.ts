@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("card.parent");
+    //console.log("card.parent");
 
   }
 

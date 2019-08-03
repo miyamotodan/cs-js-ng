@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CsformComponent implements OnInit {
 
-  public schema;
-  public example;
+  //cscomp
+  private parent;
+
+  private active=false;
+
+  private data;
+  private schema;
 
   constructor() { }
 
@@ -17,28 +22,38 @@ export class CsformComponent implements OnInit {
     this.schema = {
       type: "object",
       properties: {
-        name: { type: "string", minLength: 2, title: "Name", description: "Name or alias" },
-        surname: { type: "string", minLength: 2, title: "Name", description: "surname" },
-        title: {
-          type: "string",
-          enum: ['dr','jr','sir','mrs','mr','NaN','dj']
-        }
+        id: { type: "string", minLength: 1, title: "id", description: "node id" },
+        label: { type: "string", minLength: 3, title: "label", description: "node label" },
+        weight: { type: "number", minLength: 1, title: "weight", description: "node weight" },
+        type: { type: "string", minLength: 1, title: "type", description: "node type" },
+        class: { type: "string", minLength: 1, title: "class", description: "node class" }
       }
     }
 
-
-    this.example = {
-      first_name: "Jane", last_name: "Doe", age: 25, is_company: false,
-      address: {
-        street_1: "123 Main St.", street_2: null,
-        city: "Las Vegas", state: "NV", zip_code: "89123"
-      },
-      phone_numbers: [
-        { number: "702-123-4567", type: "cell" },
-        { number: "702-987-6543", type: "work" }
-      ], notes: ""
+    this.data = {
+      id: "",
+      weight: 10,
+      type: "",
+      class: "",
+      label: ""
     };
 
+  }
+
+  submit (d) {
+    console.log(d);
+    this.parent.receiveFormData(d);
+    this.active=false;
+  }
+
+  setParent(p) {
+    this.parent=p;
+  }
+
+
+  setData(d) {
+    this.active=true;
+    this.data=d;
   }
 
 }

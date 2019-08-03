@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GraphRestApiService } from '../shared/graph-rest-api.service';
 
 import * as $ from 'jquery';
@@ -6,6 +6,7 @@ import * as cs from 'cytoscape';
 import * as cscola from 'cytoscape-cola';
 import * as csctxm from 'cytoscape-cxtmenu';
 import { Graph } from '../shared/graph';
+import { CsformComponent } from '../csform/csform.component';
 
 cs.use(cscola);
 cs.use(csctxm);
@@ -26,6 +27,9 @@ export class CscompComponent implements OnInit {
   private drawMode = false;
   private sourceNode = null;
 
+  //gestione dell'edit di un nodo
+  private editNode = null;
+
   //posizione del mouse
   private position = null;
 
@@ -37,6 +41,9 @@ export class CscompComponent implements OnInit {
   private totNodes = 0;
   private totEdges = 0;
   private meanCluster = 0;
+
+  //componente figlio form
+  @ViewChild(CsformComponent) child: CsformComponent ;
 
   constructor(public restApi: GraphRestApiService) {
 
@@ -93,28 +100,50 @@ export class CscompComponent implements OnInit {
 
   }
 
+  //imposto i valori del nodo nel form
+  sendFormData = (n) => {
+      this.editNode = n;
+      this.child.setData(n[0].data());
+  }
+
+  //imposto i valori del form nel nodo
+  receiveFormData = (d) => {
+
+      if(this.editNode!=null) {
+          this.editNode.removeData();
+          this.editNode.data(d);
+      }
+      this.editNode=null;
+
+  }
+
+  //ritorna l'oggetto cy
+  getCy = () => {
+    return this.cy;
+  }
+
   //calcolo dei valori riassuntivi del grafo
   computeValues = () => {
-    
+
     /**
-     *  numero di archi 
+     *  numero di archi
      */
     this.totEdges = this.cy.edges().length;
 
     /**
-     *  numero di nodi 
+     *  numero di nodi
      */
     this.totNodes = this.cy.nodes().length;
 
     /**
-     *  coefficiente di clustering medio (come se fosse non orientato) 
+     *  coefficiente di clustering medio (come se fosse non orientato)
      */
     //scorro tutti i nodi
     var ccm = 0;
     this.cy.nodes().forEach(element => {
       //prendo i vicini
       var nghMap = new Map();
-      console.log("nodo:" + element.id());
+      //console.log("nodo:" + element.id());
       var ngh = element.neighborhood();
       //console.log(ngh);
       ngh.forEach(n => {
@@ -146,7 +175,7 @@ export class CscompComponent implements OnInit {
     });
     ccm = ccm / this.totNodes;
     this.meanCluster = Number(ccm.toFixed(2));
-    
+
   }
 
   //ridimensiona il canvas del grafo
@@ -166,6 +195,9 @@ export class CscompComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //si dichiara al child
+    this.child.setParent(this);
 
     //ritorna la label per l'icona del menu contestuale
     let iconLabel = (label) => {
@@ -230,7 +262,10 @@ export class CscompComponent implements OnInit {
 
     };
 
+    //associa le funzioni fuori dal metodo (verificare se è l'unico modo)
     let computeValues = this.computeValues;
+    let sendFormData = this.sendFormData;
+    let getCy = this.getCy;
 
     this.cy = cs({
 
@@ -246,7 +281,7 @@ export class CscompComponent implements OnInit {
             'background-color': 'red',
             'border-color': 'black',
             'border-width': '2',
-            'label': function (data) { return "[" + data.id() + "]:" + data.data().weight; },
+            'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
             'width': 'data(weight)',
             'height': 'data(weight)'
           }
@@ -257,6 +292,18 @@ export class CscompComponent implements OnInit {
             'border-color': 'black',
             'border-width': '3px',
             'background-color': 'lightgrey'
+          }
+        },
+        {
+          selector: 'node[class="standard"]',
+          style: {
+            shape: 'rectangle',
+            'background-color': 'gray',
+            'border-color': 'black',
+            'border-width': '2',
+            'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
+            'width': 'data(weight)',
+            'height': 'data(weight)'
           }
         },
         {
@@ -362,7 +409,8 @@ export class CscompComponent implements OnInit {
           content: '<span class="fa fa-edit fa-2x">' + iconLabel('Edit') + '</span>', // html/text content to be displayed in the menu
           contentStyle: {}, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
-            console.log(ele.id()) // `ele` holds the reference to the active element
+            //console.log(ele.id()); // `ele` holds the reference to the active element
+            sendFormData(ele);
           },
           enabled: true // whether the command is selectable
         },
@@ -371,7 +419,7 @@ export class CscompComponent implements OnInit {
           content: '<span class="fa fa-trash fa-2x">' + iconLabel('delete') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
-            console.log(ele.id()) // `ele` holds the reference to the active element
+            //console.log(ele.id()) // `ele` holds the reference to the active element
             //cancellazione del nodo
             ele.cy().remove(ele);
             computeValues();
@@ -423,7 +471,7 @@ export class CscompComponent implements OnInit {
           content: '<span class="fa fa-trash fa-2x">' + iconLabel('Delete') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
-            console.log(ele.id()) // `ele` holds the reference to the active element
+            //console.log(ele.id()) // `ele` holds the reference to the active element
             //cancellazione dell'arco
             ele.cy().remove(ele);
             computeValues();
@@ -469,11 +517,16 @@ export class CscompComponent implements OnInit {
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
             var pos = this.position;
-            console.log(pos);
-            //aggiungo un nodo con ID random (da verificare se esiste)
-            var nodeId = randomize(1000, 2000) + "";
+            //console.log(pos);
+            //aggiungo un nodo con l'ID = max(ID)+1
+            let nodeId = getCy().nodes().max(function(i){console.log(i);return i.data().id});
+            console.log(nodeId);
+
+            let newId : number = (nodeId.ele==null) ? 0 : Number(nodeId.ele.id());
+            newId++;
+            console.log(newId);
             var eles = this.add([
-              { group: 'nodes', data: { id: nodeId, weight: '20' }, renderedPosition: pos }
+              { group: 'nodes', data: { id: ""+newId, weight: 10, type: "", class: "", label: "" }, renderedPosition: pos }
             ]);
             computeValues();
           },
