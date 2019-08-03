@@ -40,6 +40,10 @@ export class CsformComponent implements OnInit {
 
   }
 
+  setActive(b) {
+      this.active=b
+  }
+
   submit (d) {
     console.log(d);
     this.parent.receiveFormData(d);

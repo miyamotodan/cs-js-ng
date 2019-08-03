@@ -29,7 +29,7 @@ export class CscompComponent implements OnInit {
 
   //gestione dell'edit di un nodo
   private editNode = null;
-
+  
   //posizione del mouse
   private position = null;
 
@@ -46,56 +46,42 @@ export class CscompComponent implements OnInit {
   @ViewChild(CsformComponent) child: CsformComponent ;
 
   constructor(public restApi: GraphRestApiService) {
-
+    //all'inizio carica i dati
     this.load();
-
   }
 
   export() {
     alert('cscomp.export()');
   }
 
+  //salvataggio dei dati sul json
+  //TODO:deve salvare grafi diversi non solo quello con id=1
   save() {
-
-    //alert ('cscomp.save()')
-
-    //console.log(this.cy.elements().jsons());
-
     var g: Graph = new Graph();
     g.graph = this.cy.elements().jsons();
     g.id = "1";
     g.name = "nome";
-
     //funzione che attende il salvataggio dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.updateGraph(g.id, g).subscribe((data: {}) => {
-
-      console.log(this.graph);
       console.log(data);
-
     });
-
-
   }
 
+  //caricamento dei dati da json
+  //TODO:deve caricare diversi grafi non solo quello all'inizio della lista data[0]
   load() {
-
     //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.getGraphs().subscribe((data: {}) => {
-
       this.cy.elements().remove();
       //per ora prendo il primo grafo
       this.graph = data[0].graph;
       this.graphId = data[0].id;
       this.graphName = data[0].name
       console.log("cscomp.load : " + this.graphId + ", " + this.graphName + ", " + this.graph.length);
-
       //aggiungo gli elementi al grafo corrente
       this.cy.add(this.graph);
-      //dispongo il grafo in modo random
-      //this.cy.layout({name: 'random'}).run();
-
+      //calcolo i valori riassuntivi
       this.computeValues();
-
     });
 
   }
@@ -104,17 +90,17 @@ export class CscompComponent implements OnInit {
   sendFormData = (n) => {
       this.editNode = n;
       this.child.setData(n[0].data());
+      n.select()
   }
 
   //imposto i valori del form nel nodo
   receiveFormData = (d) => {
-
       if(this.editNode!=null) {
           this.editNode.removeData();
           this.editNode.data(d);
+          this.editNode.deselect();
       }
       this.editNode=null;
-
   }
 
   //ritorna l'oggetto cy
@@ -143,27 +129,19 @@ export class CscompComponent implements OnInit {
     this.cy.nodes().forEach(element => {
       //prendo i vicini
       var nghMap = new Map();
-      //console.log("nodo:" + element.id());
       var ngh = element.neighborhood();
-      //console.log(ngh);
       ngh.forEach(n => {
         if (n.isNode()) {
-          //console.log("[" + n.id() + "]");
           nghMap.set(n.id(), n);
         }
       });
-      //console.log(nghMap);
       //conto gli archi tra i vicini
       var cnMap = new Map();
       nghMap.forEach(nn => {
-        //console.log(nn.id());
         nn.neighborhood().forEach(p => {
           if (p.isEdge() && p.source().id() != element.id() && p.target().id() != element.id()) {
-            //console.log("edge:"+ p.id());
-
             if (nghMap.has(p.source().id()) && nghMap.has(p.target().id())) {
               cnMap.set(p.id(), p);
-              //console.log(p.source().id() + " -> " + p.target().id() );
             }
           }
         })
@@ -174,39 +152,30 @@ export class CscompComponent implements OnInit {
 
     });
     ccm = ccm / this.totNodes;
+    //arrotondo a due cifre decimali
     this.meanCluster = Number(ccm.toFixed(2));
-
   }
 
   //ridimensiona il canvas del grafo
   resetCySize = () => {
-
     let rect = this.cy.container().getBoundingClientRect()
-    //console.log(rect);
-    //console.log("1 - cscomp.resize cy.w:"+rect.width+", cy.h:"+rect.height);
-
     this.cy.resize();
-    //this.cy.reset();
     this.cy.fit();
-    //this.lyo.run();
-
-    //console.log("2 - cscomp.resize cy.w:"+this.cy.width()+", cy.h:"+this.cy.height());
-
   }
 
   ngOnInit() {
-
     //si dichiara al child
     this.child.setParent(this);
 
-    //ritorna la label per l'icona del menu contestuale
+    // dichiaro una serie di funzioni per usarle nell funzioni definite per il menù contestuale
+
+    //ritorna l'html per la label per l'icona del menu contestuale
     let iconLabel = (label) => {
       return '<span style="font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;font-size: 12px;display: block;text-align: left;">' + label + '</span>';
     }
 
     //funzione chiamata quando viene selezionato il menù contestuale del nodo per inserire un arco
     let selectLink = (ele) => {
-
       if (this.drawMode) {
         //chiudo l'arco
         var edgeId = this.sourceNode.id() + '-' + ele.id();
@@ -216,12 +185,10 @@ export class CscompComponent implements OnInit {
         computeValues();
         resetDraw();
       } else {
-
         //apro l'arco
         this.drawMode = true;
         this.sourceNode = ele;
         ele.select();
-
       }
 
       console.log("---");
@@ -231,12 +198,12 @@ export class CscompComponent implements OnInit {
 
     }
 
-    //funione di comodo che estrae un numero casuale compreso in [a,b]
+    //funzione di comodo che estrae un numero casuale compreso in [a,b]
     let randomize = (a, b) => {
       return Math.round(Math.random() * (+b - +a) + +a);
     }
 
-    //deseleziona un nodo
+    //deseleziona un nodo con timeout
     let deselectNode = (n) => {
       if (n != null)
         setTimeout(function () {
@@ -246,20 +213,27 @@ export class CscompComponent implements OnInit {
 
     //resetta la costruzione dell'arco
     let resetDraw = () => {
-      this.drawMode = false;
-      if (this.sourceNode != null) deselectNode(this.sourceNode);
-      this.sourceNode = null;
+      if (this.drawMode) {
+        this.drawMode = false;
+        if (this.sourceNode != null) deselectNode(this.sourceNode);
+        this.sourceNode = null;
+      }
+    };
+
+    //resetta l'edit del nodo
+    let resetEdit = () => {
+      if (this.editNode) {
+        this.editNode = null;
+        this.child.setActive(false);
+      }
     };
 
     //reimposta il layout
     let resetLayout = () => {
-
       this.lyo = this.cy.layout({
         name: 'cola'
       });
-
       this.lyo.run();
-
     };
 
     //associa le funzioni fuori dal metodo (verificare se è l'unico modo)
@@ -267,13 +241,11 @@ export class CscompComponent implements OnInit {
     let sendFormData = this.sendFormData;
     let getCy = this.getCy;
 
+    //creo il grafo con le sue impostazioni
     this.cy = cs({
-
       container: document.getElementById('cy'), // container to render in
-
       elements: this.graph,
-
-      style: [ // the stylesheet for the graph
+      style: [ //stylesheet per il grafo, importante l'ordine
         {
           selector: 'node',
           style: {
@@ -287,23 +259,23 @@ export class CscompComponent implements OnInit {
           }
         },
         {
-          selector: 'node:selected',
-          style: {
-            'border-color': 'black',
-            'border-width': '3px',
-            'background-color': 'lightgrey'
-          }
-        },
-        {
           selector: 'node[class="standard"]',
           style: {
-            shape: 'rectangle',
-            'background-color': 'gray',
-            'border-color': 'black',
+            shape: 'ellipse',
+            'background-color': 'lightgreen',
+            'border-color': 'green',
             'border-width': '2',
             'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
             'width': 'data(weight)',
             'height': 'data(weight)'
+          }
+        },
+        {
+          selector: 'node:selected',
+          style: {
+            'border-color': 'red',
+            'border-width': '3',
+            'background-color': 'orange'
           }
         },
         {
@@ -339,7 +311,7 @@ export class CscompComponent implements OnInit {
       userZoomingEnabled: true,
       panningEnabled: true,
       userPanningEnabled: true,
-      boxSelectionEnabled: false,
+      boxSelectionEnabled: true,
       selectionType: 'single',
       touchTapThreshold: 8,
       desktopTapThreshold: 4,
@@ -371,8 +343,10 @@ export class CscompComponent implements OnInit {
       // of the event (core or element)
       var evtTarget = event.target;
 
-      //se si clicca ovunque resetto la costruzione dell'arco
+      //se si clicca ovunque resetto la costruzione dell'arco perché si chiude solo col menù contestuale
       resetDraw();
+      //se si clicca ovunque resetto l'editing del nodo'
+      resetEdit();
 
       //non si capisce perché this è diventato quello che doveva essere this.cy
       //probabilmente perché sto dentro ad una funzione legata a this.cy
@@ -385,6 +359,7 @@ export class CscompComponent implements OnInit {
           console.log('tap on node ' + evtTarget.id() + ', weight:' + evtTarget.data('weight'));
 
           //non seleziono al click (senza ritardo non funziona)
+          //di default seleziona al click quindi qui deseleziono di nuovo
           deselectNode(evtTarget);
 
         } else
