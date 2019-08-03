@@ -10,12 +10,12 @@
             <div class="card">
               <div class="card-header mb-0 pb-0 pt-0 mt-0" id="headingOne">
                 <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <button id="btnCollapseOne" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     conteggi
                   </button>
                 </h2>
               </div>
-          
+
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body p-2 m-0">
                     <app-card [value]="totNodes" name="Nodi" icon="fas fa-circle fa-1x"></app-card>
@@ -27,14 +27,14 @@
             <div class="card">
               <div class="card-header mb-0 pb-0 pt-0 mt-0" id="headingTwo" >
                 <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <button id="btnCollapseTwo" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     dati
                   </button>
                 </h2>
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body p-2 m-0">
-                  
+
                   <!--
                     <form>
                         <div class="form-group">

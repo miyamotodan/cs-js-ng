@@ -20,16 +20,14 @@ export class CscompComponent implements OnInit {
 
   //cytoscape
   private cy: cs.Core;
-
   private lyo: cs.Layout;
 
   //gestione della creazione di un arco
-  private drawMode = false;
   private sourceNode = null;
 
   //gestione dell'edit di un nodo
   private editNode = null;
-  
+
   //posizione del mouse
   private position = null;
 
@@ -90,7 +88,12 @@ export class CscompComponent implements OnInit {
   sendFormData = (n) => {
       this.editNode = n;
       this.child.setData(n[0].data());
-      n.select()
+      n.select();
+      //apro l'accordion del form
+      const el1 = $('#collapseOne');
+      el1.removeClass('show').addClass('collapse');
+      const el2 = $('#collapseTwo');
+      el2.removeClass('collapse').addClass('show');
   }
 
   //imposto i valori del form nel nodo
@@ -176,7 +179,7 @@ export class CscompComponent implements OnInit {
 
     //funzione chiamata quando viene selezionato il menù contestuale del nodo per inserire un arco
     let selectLink = (ele) => {
-      if (this.drawMode) {
+      if (this.sourceNode!=null) {
         //chiudo l'arco
         var edgeId = this.sourceNode.id() + '-' + ele.id();
         var eles = ele.cy().add([
@@ -186,14 +189,13 @@ export class CscompComponent implements OnInit {
         resetDraw();
       } else {
         //apro l'arco
-        this.drawMode = true;
         this.sourceNode = ele;
         ele.select();
       }
 
       console.log("---");
       console.log("selectLink (" + ele.id() + ")");
-      console.log("drawMode (" + this.drawMode + ")");
+      console.log("drawMode (" + (this.sourceNode!=null) + ")");
       if (this.sourceNode) console.log("sourceNode (" + this.sourceNode.id() + ")");
 
     }
@@ -213,8 +215,7 @@ export class CscompComponent implements OnInit {
 
     //resetta la costruzione dell'arco
     let resetDraw = () => {
-      if (this.drawMode) {
-        this.drawMode = false;
+      if (this.sourceNode!=null) {
         if (this.sourceNode != null) deselectNode(this.sourceNode);
         this.sourceNode = null;
       }
@@ -236,7 +237,7 @@ export class CscompComponent implements OnInit {
       this.lyo.run();
     };
 
-    //associa le funzioni fuori dal metodo (verificare se è l'unico modo)
+    //associa le funzioni fuori dal metodo ngOnInit (verificare se è l'unico modo) per usarle nelle funzioni del menù
     let computeValues = this.computeValues;
     let sendFormData = this.sendFormData;
     let getCy = this.getCy;
@@ -250,8 +251,8 @@ export class CscompComponent implements OnInit {
           selector: 'node',
           style: {
             shape: 'ellipse',
-            'background-color': 'red',
-            'border-color': 'black',
+            'background-color': '#f7cac9',
+            'border-color': '#f7786b',
             'border-width': '2',
             'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
             'width': 'data(weight)',
@@ -262,8 +263,8 @@ export class CscompComponent implements OnInit {
           selector: 'node[class="standard"]',
           style: {
             shape: 'ellipse',
-            'background-color': 'lightgreen',
-            'border-color': 'green',
+            'background-color': '#92a8d1',
+            'border-color': '#034f84',
             'border-width': '2',
             'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
             'width': 'data(weight)',
@@ -273,9 +274,9 @@ export class CscompComponent implements OnInit {
         {
           selector: 'node:selected',
           style: {
-            'border-color': 'red',
+            'border-color': '#50394c',
             'border-width': '3',
-            'background-color': 'orange'
+            'background-color': '#ffef96'
           }
         },
         {
