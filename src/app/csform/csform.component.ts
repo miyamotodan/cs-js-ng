@@ -14,6 +14,7 @@ export class CsformComponent implements OnInit {
 
   private data;
   private schema;
+  private form;
 
   constructor() { }
 
@@ -23,7 +24,7 @@ export class CsformComponent implements OnInit {
       type: "object",
       properties: {
         id: { type: "string", minLength: 1, title: "id", description: "node id" },
-        label: { type: "string", minLength: 3, title: "label", description: "node label" },
+        label: { type: "string", minLength: 3, title: "label", description: "node label", pattern: "^\\S+$"},
         weight: { type: "number", minLength: 1, title: "weight", description: "node weight" },
         type: { type: "string", minLength: 1, title: "type", description: "node type" },
         class: { type: "string", minLength: 1, title: "class", description: "node class" }
@@ -38,6 +39,17 @@ export class CsformComponent implements OnInit {
       label: ""
     };
 
+    this.form = [
+        
+        //{ key: "id", type: "number" },
+        { key: "label", type: "text" },
+        { key: "weight", type: "number" },
+        { key: "type", type: "text" },
+        { key: "class", type: "text" },
+        { type: 'submit', title: 'Salva dati' }
+      
+    ];
+
   }
 
   setActive(b) {
@@ -46,8 +58,10 @@ export class CsformComponent implements OnInit {
 
   submit (d) {
     console.log(d);
-    this.parent.receiveFormData(d);
-    this.active=false;
+    if (d!=null) {
+      this.parent.receiveFormData(d);
+      this.active=false;
+    }
   }
 
   setParent(p) {

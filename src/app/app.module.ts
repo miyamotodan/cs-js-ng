@@ -10,9 +10,10 @@ import { CardComponent } from './card/card.component';
 //per usare il client HTTP nell'applicazione
 import { HttpClientModule } from '@angular/common/http';
 
-import { MaterialDesignFrameworkModule } from 'angular7-json-schema-form';
+import { MaterialDesignFrameworkModule, Bootstrap4FrameworkModule, Bootstrap3FrameworkModule, NoFrameworkModule } from 'angular7-json-schema-form';
 import { CsformComponent } from './csform/csform.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     MaterialDesignFrameworkModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule, MatCardModule,
+    Bootstrap3FrameworkModule, Bootstrap4FrameworkModule, NoFrameworkModule
   ],
   providers: [],
   bootstrap: [AppComponent]
