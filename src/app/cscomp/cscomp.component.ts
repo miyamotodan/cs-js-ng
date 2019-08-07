@@ -255,6 +255,10 @@ export class CscompComponent implements OnInit {
             'border-color': '#f7786b',
             'border-width': '2',
             'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
+            
+            'text-halign':'center',
+            'text-valign':'center',
+            
             'width': 'data(weight)',
             'height': 'data(weight)'
           }
@@ -262,13 +266,8 @@ export class CscompComponent implements OnInit {
         {
           selector: 'node[class="standard"]',
           style: {
-            shape: 'ellipse',
             'background-color': '#92a8d1',
             'border-color': '#034f84',
-            'border-width': '2',
-            'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
-            'width': 'data(weight)',
-            'height': 'data(weight)'
           }
         },
         {

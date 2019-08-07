@@ -1,3 +1,21 @@
-<p>
-  settings works!
-</p>
+<mat-card fxFlex="0 0 calc(100% - 12px)">
+  <div class="json-schema-form">
+    <json-schema-form 
+      [schema]="schema" 
+      [data]="data" 
+      language="it" 
+      framework="material-design"
+      (onSubmit)="submit($event)" 
+      [layout]="form"
+      loadExternalAssets="true"
+      [options]="option"
+      #myform>
+      <!--
+        [widgets]="yourCustomWidgets"
+        (onChanges)="yourOnChangesFn($event)"
+        (isValid)="yourIsValidFn($event)"
+        (validationErrors)="yourValidationErrorsFn($event)"
+      -->
+    </json-schema-form>
+  </div>
+</mat-card>

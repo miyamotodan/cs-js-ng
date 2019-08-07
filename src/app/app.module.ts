@@ -14,6 +14,7 @@ import { MaterialDesignFrameworkModule, Bootstrap4FrameworkModule, Bootstrap3Fra
 import { CsformComponent } from './csform/csform.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { MatCardModule } from '@angular/material';
     HttpClientModule,
     MaterialDesignFrameworkModule,
     BrowserAnimationsModule, MatCardModule,
-    Bootstrap3FrameworkModule, Bootstrap4FrameworkModule, NoFrameworkModule
+    Bootstrap3FrameworkModule, Bootstrap4FrameworkModule, NoFrameworkModule, FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
