@@ -8,12 +8,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class SettingsComponent implements OnInit {
 
 
-  @ViewChild('myform') myform: ElementRef;
+  @ViewChild('myform') myform: any;
 
   private data;
   private schema;
   private form;
   private option;
+  private formdata;
 
   constructor() { }
 
@@ -34,20 +35,20 @@ export class SettingsComponent implements OnInit {
           "type": "object",
           "title": "Stile",
           "properties": {
-            "selector": { "type": "string", title: "selector" },
+            "selector": { "type": "string", "title": "selector" },
             "style": {
               "type": "object",
               "title": "Proprietà",
               "properties": {
-                "shape": { type: "string", title: "value" },
-                "background-color": { type: "string", title: "background-color" },
-                "border-color": { type: "string", title: "border-color" },
-                "border-width": { type: "number", title: "border-width" },
-                "label": { type: "string", title: "label" },
-                "text-halign": { type: "string", title: "text-halign", "enum": ["left", "right", "center"] },
-                "text-valign": { type: "string", title: "text-valign", "enum": ["top", "bottom", "center"] },
-                "width": { type: "string", title: "width" },
-                "height": { type: "string", title: "height" }
+                "shape": { "type": "string", "title": "value" },
+                "background-color": { "type": "string", "format": "color", "title": "background-color", "default": "#000000" },
+                "border-color": {"type": "string", "format": "color", "title": "border-color", "default": "#000000" },
+                "border-width": { "type": "number", "title": "border-width" },
+                "label": { "type": "string", "title": "label" },
+                "text-halign": { "type": "string", "title": "text-halign", "enum": ["left", "right", "center"] },
+                "text-valign": { "type": "string", "title": "text-valign", "enum": ["top", "bottom", "center"] },
+                "width": { "type": "string", "title": "width" },
+                "height": { "type": "string", "title": "height" }
               }
             }
           }
@@ -58,7 +59,7 @@ export class SettingsComponent implements OnInit {
       "properties": {
         "stili": {
           "type": "array",
-          "maxItems": 5,
+          "minItems": 1,
           "items": { "$ref": "#/definitions/selector_obj" }
         }
       }
@@ -66,13 +67,13 @@ export class SettingsComponent implements OnInit {
 
     this.data = {
       "stili": [{
-        selector: "node",
-        style: {
+        "selector": "node",
+        "style": {
           "shape": "ellipse",
           "background-color": "#f7cac9",
           "border-color": "#f7786b",
           "border-width": "2",
-          "label": "-----",
+          "label": "data.data().label",
           "text-halign": "center",
           "text-valign": "center",
           "width": "data(weight)",
@@ -80,6 +81,7 @@ export class SettingsComponent implements OnInit {
         }
       }]
     };
+
 
     this.form = null;
 
@@ -91,7 +93,12 @@ export class SettingsComponent implements OnInit {
 
   save() {
     //simula il submit invocando il metodo con i dati del form
-    this.submit(this.myform.data);
+    this.submit(this.formdata);
+  }
+
+  change(d) {
+    //ultimo stato del form
+    this.formdata = d;
   }
 
   load() {
@@ -99,6 +106,3 @@ export class SettingsComponent implements OnInit {
   }
 
 }
-
-
-

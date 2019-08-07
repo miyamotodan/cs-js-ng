@@ -1,18 +1,18 @@
 <mat-card fxFlex="0 0 calc(100% - 12px)">
   <div class="json-schema-form">
-    <json-schema-form 
-      [schema]="schema" 
-      [data]="data" 
-      language="it" 
+    <json-schema-form
+      [schema]="schema"
+      [data]="data"
+      language="it"
       framework="material-design"
-      (onSubmit)="submit($event)" 
+      (onSubmit)="submit($event)"
       [layout]="form"
       loadExternalAssets="true"
       [options]="option"
+      (onChanges)="change($event)"
       #myform>
       <!--
         [widgets]="yourCustomWidgets"
-        (onChanges)="yourOnChangesFn($event)"
         (isValid)="yourIsValidFn($event)"
         (validationErrors)="yourValidationErrorsFn($event)"
       -->
