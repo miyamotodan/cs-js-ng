@@ -35,6 +35,7 @@ export class CscompComponent implements OnInit {
   private graph = null;
   private graphName = "";
   private graphId = "";
+  private graphConfig = null;
 
   private totNodes = 0;
   private totEdges = 0;
@@ -50,6 +51,13 @@ export class CscompComponent implements OnInit {
 
   export() {
     alert('cscomp.export()');
+
+    //TEST
+    //configurazioni di cy
+    //andrebbero salvate su file da componente di configurazione e poi ricaricate da questo 
+    let cnf = this.cy.options();
+    console.log(cnf.style);
+
   }
 
   //salvataggio dei dati sul json
@@ -242,8 +250,8 @@ export class CscompComponent implements OnInit {
     let sendFormData = this.sendFormData;
     let getCy = this.getCy;
 
-    //creo il grafo con le sue impostazioni
-    this.cy = cs({
+    //inizializzo le configurazioni cytoscape
+    this.cyConfig = {
       container: document.getElementById('cy'), // container to render in
       elements: this.graph,
       style: [ //stylesheet per il grafo, importante l'ordine
@@ -330,7 +338,10 @@ export class CscompComponent implements OnInit {
       wheelSensitivity: 0.1,
       pixelRatio: 'auto'
 
-    });
+    };
+
+    //creo il grafo con le sue impostazioni
+    this.cy = cs(this.cyConfig);
 
     //memorizza la posizione del mouse
     this.cy.bind("mousemove", function (e) { this.position = e.position; });
@@ -372,6 +383,10 @@ export class CscompComponent implements OnInit {
       }
 
     });
+
+    /**
+     * IMPOSTO I MENU CONTESTUALI
+     */
 
     // the default values of each option are outlined below:
     let defaultsNode = {
