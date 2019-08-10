@@ -31,10 +31,8 @@ export class CscompComponent implements OnInit {
   //posizione del mouse
   private position = null;
 
-  //archi e nodi del grafo
-  private graph = null;
-  private graphName = "";
-  private graphId = "";
+  //grafo corrente
+  private G : Graph = null;
   private graphOptions = null;
 
   //conteggi
@@ -46,8 +44,6 @@ export class CscompComponent implements OnInit {
   @ViewChild(CsformComponent) child: CsformComponent ;
 
   constructor(public restApi: GraphRestApiService) {
-    //all'inizio carica i dati
-    this.load();
   }
 
   export() {
@@ -64,17 +60,18 @@ export class CscompComponent implements OnInit {
   //salvataggio dei dati sul json
   //TODO:deve salvare grafi diversi non solo quello con id=1
   save() {
-    var g: Graph = new Graph();
-    g.graph = this.cy.elements().jsons();
-    g.id = "1";
-    g.name = "nome";
-    g.options = {stili : []};
-    g.options.stili = (this.cy.options()).style;
+    this.G.graph = this.cy.elements().jsons();
+    this.G.id = "1";
+    this.G.name = "nome";
+    this.G.options = {stili : []};
+    this.G.options.stili = (this.cy.options()).style;
 
-    console.log(g);
+    console.log('SAVING');
+    console.log(this.G);
 
     //funzione che attende il salvataggio dei dati facendo una subscribe al metodo che ritorna un promise
-    this.restApi.updateGraph(g.id, g).subscribe((data: {}) => {
+    this.restApi.updateGraph(this.G.id, this.G).subscribe((data: {}) => {
+      console.log('SAVED');
       console.log(data);
     });
   }
@@ -82,30 +79,31 @@ export class CscompComponent implements OnInit {
   //caricamento dei dati da json
   //TODO:deve caricare diversi grafi non solo quello all'inizio della lista data[0]
   load() {
-    //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
-    this.restApi.getGraphs().subscribe((data: {}) => {
-      this.cy.elements().remove();
 
-      //per ora prendo il primo grafo
-      this.graph = data[0].graph;
-      this.graphId = data[0].id;
-      this.graphName = data[0].name;
-      this.graphOptions = data[0].options;
+    return new Promise (resolve => {
 
-      console.log("cscomp.load : " + this.graphId + ", " + this.graphName + ", " + this.graph.length);
+      //ASINCRONO
 
-      //aggiungo gli elementi al grafo corrente
-      this.cy.add(this.graph);
+      //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
+      this.restApi.getGraphs().subscribe((data: {}) => {
+        if (this.cy) this.cy.elements().remove();
 
-      console.log(this.graphOptions.stili);
+        //per ora prendo il primo grafo
+        this.G=new Graph();
+        this.G.graph = data[0].graph;
+        this.G.id = data[0].id;
+        this.G.name = data[0].name;
+        this.G.options = data[0].options;
 
-      //aggiorno gli stili
-      this.cy.style(this.graphOptions.stili);
+        console.log("cscomp.load : " + this.G.id + ", " + this.G.name + ", " + this.G.graph.length);
 
-      //calcolo i valori riassuntivi
-      this.computeValues();
+        this.setGraph();
+
+        //fome del task asincrono (senza ritorno di valore)
+        resolve();
+
+      });
     });
-
   }
 
   //imposto i valori del nodo nel form
@@ -191,8 +189,41 @@ export class CscompComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //si dichiara al child
     this.child.setParent(this);
+
+    //all'inizio carica i dati
+    this.load().then( () =>{
+
+      console.log(this.G);
+
+      this.initialize();
+
+      this.setGraph();
+
+    });
+
+  }
+
+
+  setGraph = () => {
+
+    //aggiungo gli elementi al grafo corrente
+    if (this.cy) this.cy.add(this.G.graph);
+
+    //aggiorno gli stili
+    if (this.cy) this.cy.style(this.G.options.stili);
+
+    console.log('LOADED');
+    if (this.cy) console.log(this.cy.style());
+
+    //calcolo i valori riassuntivi
+    if (this.cy) this.computeValues();
+
+  }
+
+  initialize = () => {
 
     // dichiaro una serie di funzioni per usarle nell funzioni definite per il menù contestuale
 
@@ -269,12 +300,12 @@ export class CscompComponent implements OnInit {
     //inizializzo le configurazioni cytoscape
     this.graphOptions = {
       container: document.getElementById('cy'), // container to render in
-      elements: this.graph,
+      elements: this.G.graph,
       style: [ //stylesheet per il grafo, importante l'ordine
         {
-          selector: 'node',
-          style: {
-            shape: 'ellipse',
+          'selector': 'node',
+          'style': {
+            'shape': 'ellipse',
             'background-color': '#f7cac9',
             'border-color': '#f7786b',
             'border-width': '2',
@@ -289,23 +320,23 @@ export class CscompComponent implements OnInit {
           }
         },
         {
-          selector: 'node[class="standard"]',
-          style: {
+          'selector': 'node[class="standard"]',
+          'style': {
             'background-color': '#92a8d1',
             'border-color': '#034f84',
           }
         },
         {
-          selector: 'node:selected',
-          style: {
+          'selector': 'node:selected',
+          'style': {
             'border-color': '#50394c',
             'border-width': '3',
             'background-color': '#ffef96'
           }
         },
         {
-          selector: 'edge',
-          style: {
+          'selector': 'edge',
+          'style': {
             'width': 3,
             'line-color': '#aaa',
             'curve-style': 'straight',
@@ -313,8 +344,8 @@ export class CscompComponent implements OnInit {
           }
         },
         {
-          selector: 'edge:selected',
-          style: {
+          'selector': 'edge:selected',
+          'style': {
             'line-color': 'black',
             'target-arrow-color': 'black'
           }
