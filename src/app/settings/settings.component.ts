@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { GraphRestApiService } from '../shared/graph-rest-api.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,13 +11,35 @@ export class SettingsComponent implements OnInit {
 
   @ViewChild('myform') myform: any;
 
-  private data;
-  private schema;
-  private form;
-  private option;
-  private formdata;
+  private graph; //tutto il grafo
+  private data  = {stili : []}; //dati delle opzioni (stili)
+  private schema; //schema del form
+  private form; //layout del form
+  private option; //opzioni del form
+  private formdata; //dati live
 
-  constructor() { }
+  loaded: Promise<boolean>;
+
+  constructor(public restApi: GraphRestApiService) {
+    //all'inizio carica i dati
+    this.load();
+  }
+
+  //caricamento dei dati da json
+  //TODO:deve caricare diversi grafi non solo quello all'inizio della lista data[0]
+  load() {
+    //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
+    this.restApi.getGraphs().subscribe((data: {}) => {
+      //per ora prendo il primo grafo
+      this.graph = data[0];
+
+      console.log("GRAPH LOADED");
+      console.log(this.graph);
+
+      this.data.stili = this.graph.options.stili;
+      this.loaded = Promise.resolve(true);
+    });
+  }
 
   ngOnInit() {
 
@@ -29,6 +52,8 @@ export class SettingsComponent implements OnInit {
       defaultWidgetOptions: { feedback: true }, // Show inline feedback icons
     };
 
+    //questo form va bene per i nodi ma non per gli archi...
+    //TODO:capire se si può fare variabile a seconda dei valori (tipo selector che contiene node o edge)
     this.schema = {
       "definitions": {
         "selector_obj": {
@@ -40,7 +65,7 @@ export class SettingsComponent implements OnInit {
               "type": "object",
               "title": "Proprietà",
               "properties": {
-                "shape": { "type": "string", "title": "value" },
+                "shape": { "type": "string", "title": "shape" },
                 "background-color": { "type": "string", "format": "color", "title": "background-color", "default": "#000000" },
                 "border-color": {"type": "string", "format": "color", "title": "border-color", "default": "#000000" },
                 "border-width": { "type": "number", "title": "border-width" },
@@ -65,34 +90,26 @@ export class SettingsComponent implements OnInit {
       }
     };
 
-    this.data = {
-      "stili": [{
-        "selector": "node",
-        "style": {
-          "shape": "ellipse",
-          "background-color": "#f7cac9",
-          "border-color": "#f7786b",
-          "border-width": "2",
-          "label": "data.data().label",
-          "text-halign": "center",
-          "text-valign": "center",
-          "width": "data(weight)",
-          "height": "data(weight)"
-        }
-      }]
-    };
-
-
     this.form = null;
-
   }
 
   submit(d) {
-    console.log(d);
+
+    //salvataggio dei dati sul json
+    //TODO:deve salvare grafi diversi non solo quello con id=1
+    this.graph.options = d;
+
+    console.log(this.graph);
+
+    //funzione che attende il salvataggio dei dati facendo una subscribe al metodo che ritorna un promise
+    this.restApi.updateGraph(this.graph.id, this.graph).subscribe((data: {}) => {
+      console.log(d);
+    });
+
   }
 
   save() {
-    //simula il submit invocando il metodo con i dati del form
+    //simula il submit invocando il metodo con i dati live del form
     this.submit(this.formdata);
   }
 
@@ -101,8 +118,5 @@ export class SettingsComponent implements OnInit {
     this.formdata = d;
   }
 
-  load() {
-    alert("settings.load()");
-  }
 
 }

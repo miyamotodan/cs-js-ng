@@ -1,3 +1,5 @@
+<div *ngIf="loaded | async; else elseBlock">
+
 <mat-card fxFlex="0 0 calc(100% - 12px)">
   <div class="json-schema-form">
     <json-schema-form
@@ -19,3 +21,10 @@
     </json-schema-form>
   </div>
 </mat-card>
+
+</div>
+
+<ng-template #elseBlock>
+  <!--Content to render when condition is false.-->
+  <span class="mat-body">no data</span>
+</ng-template>

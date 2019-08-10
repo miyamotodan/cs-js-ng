@@ -35,8 +35,9 @@ export class CscompComponent implements OnInit {
   private graph = null;
   private graphName = "";
   private graphId = "";
-  private graphConfig = null;
+  private graphOptions = null;
 
+  //conteggi
   private totNodes = 0;
   private totEdges = 0;
   private meanCluster = 0;
@@ -54,7 +55,7 @@ export class CscompComponent implements OnInit {
 
     //TEST
     //configurazioni di cy
-    //andrebbero salvate su file da componente di configurazione e poi ricaricate da questo 
+    //andrebbero salvate su file da componente di configurazione e poi ricaricate da questo
     let cnf = this.cy.options();
     console.log(cnf.style);
 
@@ -67,6 +68,11 @@ export class CscompComponent implements OnInit {
     g.graph = this.cy.elements().jsons();
     g.id = "1";
     g.name = "nome";
+    g.options = {stili : []};
+    g.options.stili = (this.cy.options()).style;
+
+    console.log(g);
+
     //funzione che attende il salvataggio dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.updateGraph(g.id, g).subscribe((data: {}) => {
       console.log(data);
@@ -79,13 +85,23 @@ export class CscompComponent implements OnInit {
     //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
     this.restApi.getGraphs().subscribe((data: {}) => {
       this.cy.elements().remove();
+
       //per ora prendo il primo grafo
       this.graph = data[0].graph;
       this.graphId = data[0].id;
-      this.graphName = data[0].name
+      this.graphName = data[0].name;
+      this.graphOptions = data[0].options;
+
       console.log("cscomp.load : " + this.graphId + ", " + this.graphName + ", " + this.graph.length);
+
       //aggiungo gli elementi al grafo corrente
       this.cy.add(this.graph);
+
+      console.log(this.graphOptions.stili);
+
+      //aggiorno gli stili
+      this.cy.style(this.graphOptions.stili);
+
       //calcolo i valori riassuntivi
       this.computeValues();
     });
@@ -251,7 +267,7 @@ export class CscompComponent implements OnInit {
     let getCy = this.getCy;
 
     //inizializzo le configurazioni cytoscape
-    this.cyConfig = {
+    this.graphOptions = {
       container: document.getElementById('cy'), // container to render in
       elements: this.graph,
       style: [ //stylesheet per il grafo, importante l'ordine
@@ -262,11 +278,12 @@ export class CscompComponent implements OnInit {
             'background-color': '#f7cac9',
             'border-color': '#f7786b',
             'border-width': '2',
-            'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
-            
+            //'label': function (data) { return "[" + data.data().label + "]:" + data.data().weight; },
+            'label':'data(label)',
+
             'text-halign':'center',
             'text-valign':'center',
-            
+
             'width': 'data(weight)',
             'height': 'data(weight)'
           }
@@ -341,7 +358,7 @@ export class CscompComponent implements OnInit {
     };
 
     //creo il grafo con le sue impostazioni
-    this.cy = cs(this.cyConfig);
+    this.cy = cs(this.graphOptions);
 
     //memorizza la posizione del mouse
     this.cy.bind("mousemove", function (e) { this.position = e.position; });
