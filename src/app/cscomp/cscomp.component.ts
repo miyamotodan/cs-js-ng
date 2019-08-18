@@ -63,8 +63,6 @@ export class CscompComponent implements OnInit {
     this.G.graph = this.cy.elements().jsons();
     this.G.id = "1";
     this.G.name = "nome";
-    this.G.options = {stili : []};
-    this.G.options.stili = (this.cy.options()).style;
 
     console.log('SAVING');
     console.log(this.G);
@@ -99,7 +97,7 @@ export class CscompComponent implements OnInit {
 
         this.setGraph();
 
-        //fome del task asincrono (senza ritorno di valore)
+        //fine del task asincrono (senza ritorno di valore)
         resolve();
 
       });
@@ -213,10 +211,20 @@ export class CscompComponent implements OnInit {
     if (this.cy) this.cy.add(this.G.graph);
 
     //aggiorno gli stili
-    if (this.cy) this.cy.style(this.G.options.stili);
+    if (this.cy) this.cy.style(this.G.options.styles);
+
+    //aggiorno il layout
+    if (this.cy)  {
+
+      let lyo = this.cy.layout({name: this.G.options.layout});
+      //lyo.run();
+
+      console.log ("layuout:"+this.G.options.layout);
+
+    }
 
     console.log('LOADED');
-    if (this.cy) console.log(this.cy.style());
+    if (this.cy) console.log(this.G);
 
     //calcolo i valori riassuntivi
     if (this.cy) this.computeValues();
@@ -287,7 +295,7 @@ export class CscompComponent implements OnInit {
     //reimposta il layout
     let resetLayout = () => {
       this.lyo = this.cy.layout({
-        name: 'cola'
+        name: this.G.options.layout
       });
       this.lyo.run();
     };
@@ -353,7 +361,7 @@ export class CscompComponent implements OnInit {
       ],
 
       layout: {
-        name: 'random'
+        name: 'preset'
       },
 
       // initial viewport state:

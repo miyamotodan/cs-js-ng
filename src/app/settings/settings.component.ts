@@ -12,7 +12,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild('myform') myform: any;
 
   private graph; //tutto il grafo
-  private data  = {stili : []}; //dati delle opzioni (stili)
+  private data  = {styles : [], layout:""}; //dati delle opzioni (stili, laYOUT)
   private schema; //schema del form
   private form; //layout del form
   private option; //opzioni del form
@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
       console.log("GRAPH LOADED");
       console.log(this.graph);
 
-      this.data.stili = this.graph.options.stili;
+      this.data.styles = this.graph.options.styles;
       this.loaded = Promise.resolve(true);
     });
   }
@@ -82,7 +82,7 @@ export class SettingsComponent implements OnInit {
       "type": "object",
       "title": "Stili",
       "properties": {
-        "stili": {
+        "styles": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/definitions/selector_obj" }

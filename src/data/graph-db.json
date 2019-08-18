@@ -11,8 +11,8 @@
             "class": "standard"
           },
           "position": {
-            "x": 600.6032616659609,
-            "y": 133.2952422732563
+            "x": 343.1430660746587,
+            "y": 124.19255648244724
           },
           "group": "nodes",
           "removed": false,
@@ -31,8 +31,8 @@
             "label": "pippo_baudo"
           },
           "position": {
-            "x": 688.1199045113185,
-            "y": 103.78194087605459
+            "x": 423.00812277069264,
+            "y": 148.7193514392038
           },
           "group": "nodes",
           "removed": false,
@@ -51,8 +51,8 @@
             "class": "standard"
           },
           "position": {
-            "x": 675.3107436112583,
-            "y": 213.30834616340465
+            "x": 346.69316333085095,
+            "y": 241.67189080551427
           },
           "group": "nodes",
           "removed": false,
@@ -66,11 +66,12 @@
           "data": {
             "id": "4",
             "weight": 35,
-            "label": "label_a"
+            "label": "label_a",
+            "class": "standard"
           },
           "position": {
-            "x": 622.3228832024552,
-            "y": 317.6521719950345
+            "x": 364.87555704141147,
+            "y": 367.08204100164124
           },
           "group": "nodes",
           "removed": false,
@@ -87,8 +88,8 @@
             "label": "label_c"
           },
           "position": {
-            "x": 536.4469384168025,
-            "y": 380.37115593322966
+            "x": 403.3926292624385,
+            "y": 467.1570216103018
           },
           "group": "nodes",
           "removed": false,
@@ -105,8 +106,8 @@
             "label": "label_b"
           },
           "position": {
-            "x": 622.4878321503119,
-            "y": 424.00342804269366
+            "x": 468.339427754983,
+            "y": 391.992463259972
           },
           "group": "nodes",
           "removed": false,
@@ -119,12 +120,49 @@
         {
           "data": {
             "id": "7",
-            "weight": 10,
+            "weight": 20,
             "label": "label_d"
           },
           "position": {
-            "x": 787.2084364418928,
-            "y": 230.08771471632693
+            "x": 459.4670260127423,
+            "y": 284.9594303879007
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "8",
+            "weight": 25,
+            "class": "standard",
+            "label": "pollo"
+          },
+          "position": {
+            "x": 238.0467237438502,
+            "y": 198.89723445727768
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "9",
+            "weight": 45,
+            "label": "ffff"
+          },
+          "position": {
+            "x": 233.53428400837205,
+            "y": 281.8280105557415
           },
           "group": "nodes",
           "removed": false,
@@ -295,21 +333,75 @@
           "locked": false,
           "grabbable": true,
           "classes": ""
+        },
+        {
+          "data": {
+            "id": "8-3",
+            "source": "8",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "9-3",
+            "source": "9",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "9-8",
+            "source": "9",
+            "target": "8"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
         }
       ],
       "id": 1,
       "name": "nome",
       "options": {
-        "stili": [
+        "styles": [
           {
             "selector": "node",
             "style": {
               "shape": "ellipse",
-              "background-color": "#ff9900",
-              "border-color": "#ff0000",
+              "background-color": "#ffaaff",
+              "border-color": "#aa0055",
               "border-width": 2,
               "label": "data(label)",
-              "text-halign": "right",
+              "text-halign": "center",
               "text-valign": "center",
               "width": "data(weight)",
               "height": "data(weight)"
@@ -318,16 +410,17 @@
           {
             "selector": "node[class=\"standard\"]",
             "style": {
-              "shape": "star",
+              "shape": "rectangle",
               "background-color": "#92a8d1",
-              "border-color": "#034f84"
+              "border-color": "#034f84",
+              "border-width": 3
             }
           },
           {
             "selector": "node:selected",
             "style": {
               "background-color": "#ffef96",
-              "border-color": "#50394c",
+              "border-color": "#ff0000",
               "border-width": 3
             }
           },
@@ -346,7 +439,8 @@
               "border-color": "#000000"
             }
           }
-        ]
+        ],
+        "layout": "cola"
       }
     }
   ]
