@@ -12,7 +12,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild('myform') myform: any;
 
   private graph; //tutto il grafo
-  private data  = {styles : [], layout:""}; //dati delle opzioni (stili, laYOUT)
+  private data = { styles: [], layout: "" }; //dati delle opzioni (stili, laYOUT)
   private schema; //schema del form
   private form; //layout del form
   private option; //opzioni del form
@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
               "properties": {
                 "shape": { "type": "string", "title": "shape" },
                 "background-color": { "type": "string", "format": "color", "title": "background-color", "default": "#000000" },
-                "border-color": {"type": "string", "format": "color", "title": "border-color", "default": "#000000" },
+                "border-color": { "type": "string", "format": "color", "title": "border-color", "default": "#000000" },
                 "border-width": { "type": "number", "title": "border-width" },
                 "label": { "type": "string", "title": "label" },
                 "text-halign": { "type": "string", "title": "text-halign", "enum": ["left", "right", "center"] },
@@ -90,7 +90,63 @@ export class SettingsComponent implements OnInit {
       }
     };
 
-    this.form = null;
+    this.form = [
+
+      {
+        "key": "styles",
+        "type": "array",
+        "items": [
+          {
+          "type": "div",
+          "displayFlex": true,
+          "flex-flow": "row wrap",
+          "items": [
+            {
+              "key": "styles[].selector", "flex": "1 1 1200px",
+              "notitle": false, "placeholder": "selector"
+            },
+            {
+              "key": "styles[].style.shape", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "oval,rectangle,star,..."
+            },
+            {
+              "key": "styles[].style.background-color", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "color"
+            },
+            {
+              "key": "styles[].style.border-color", "flex": "1 1 300px", 
+              "notitle": false, "placeholder": "color"
+            },
+            {
+              "key": "styles[].style.border-width", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "width"
+            },
+            {
+              "key": "styles[].style.label", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "label"
+            },
+            {
+              "key": "styles[].style.text-halign", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "left,right,center"
+            },
+            {
+              "key": "styles[].style.text-valign", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "top,bottom,center"
+            },
+            {
+              "key": "styles[].style.width", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "width"
+            },
+            {
+              "key": "styles[].style.height", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "height"
+            }
+          ]
+        }
+        ]
+      }
+    ];
+
   }
 
   submit(d) {
