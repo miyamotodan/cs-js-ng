@@ -11,8 +11,8 @@
             "class": "standard"
           },
           "position": {
-            "x": 479.49550383918114,
-            "y": 136.35934069917164
+            "x": 483.6298721460176,
+            "y": 135.69529278985047
           },
           "group": "nodes",
           "removed": false,
@@ -31,8 +31,8 @@
             "label": "pippo_baudo"
           },
           "position": {
-            "x": 560.0322314926241,
-            "y": 158.64862660991562
+            "x": 563.5106151401599,
+            "y": 160.1885788449497
           },
           "group": "nodes",
           "removed": false,
@@ -51,8 +51,8 @@
             "class": "standard"
           },
           "position": {
-            "x": 486.28055255689554,
-            "y": 253.65453313138036
+            "x": 487.21543714717126,
+            "y": 253.16511400382285
           },
           "group": "nodes",
           "removed": false,
@@ -70,8 +70,8 @@
             "class": "standard"
           },
           "position": {
-            "x": 507.75816885801737,
-            "y": 378.38238114993516
+            "x": 505.3772719345434,
+            "y": 378.54876516709515
           },
           "group": "nodes",
           "removed": false,
@@ -88,8 +88,8 @@
             "label": "label_c"
           },
           "position": {
-            "x": 548.65431693888,
-            "y": 477.4135574727866
+            "x": 543.8249248773009,
+            "y": 478.63197005590035
           },
           "group": "nodes",
           "removed": false,
@@ -106,8 +106,8 @@
             "label": "label_b"
           },
           "position": {
-            "x": 611.807945983398,
-            "y": 400.6816910030273
+            "x": 608.8256406769932,
+            "y": 403.4984140779086
           },
           "group": "nodes",
           "removed": false,
@@ -124,8 +124,8 @@
             "label": "label_d"
           },
           "position": {
-            "x": 600.2563547304261,
-            "y": 293.8771663343327
+            "x": 599.9993551738781,
+            "y": 296.45249278668683
           },
           "group": "nodes",
           "removed": false,
@@ -143,8 +143,8 @@
             "label": "pollo"
           },
           "position": {
-            "x": 376.5531310833335,
-            "y": 214.00766975933115
+            "x": 378.5694143816184,
+            "y": 210.45182127828784
           },
           "group": "nodes",
           "removed": false,
@@ -161,8 +161,8 @@
             "label": "ffff"
           },
           "position": {
-            "x": 374.1617945172424,
-            "y": 296.97503384012043
+            "x": 330.1524846169825,
+            "y": 327.1882762996085
           },
           "group": "nodes",
           "removed": false,
@@ -406,8 +406,7 @@
               "text-valign": "center",
               "width": "data(weight)",
               "height": "data(weight)",
-              "line-color": "#000000",
-              "target-arrow-color": "#000000"
+              "line-color": "#000000"
             }
           },
           {
@@ -417,8 +416,7 @@
               "background-color": "#92a8d1",
               "border-color": "#034f84",
               "border-width": 3,
-              "line-color": "#000000",
-              "target-arrow-color": "#000000"
+              "line-color": "#000000"
             }
           },
           {
@@ -427,8 +425,7 @@
               "background-color": "#ffef96",
               "border-color": "#ff0000",
               "border-width": 3,
-              "line-color": "#000000",
-              "target-arrow-color": "#000000"
+              "line-color": "#000000"
             }
           },
           {
@@ -437,10 +434,10 @@
               "background-color": "#000000",
               "border-color": "#000000",
               "width": "3",
-              "line-color": "#808080",
+              "line-color": "#000000",
               "curve-style": "straight",
-              "target-arrow-shape": "triangle",
-              "target-arrow-color": "#808080"
+              "target-arrow-shape": "vee",
+              "target-arrow-color": "#000000"
             }
           },
           {
@@ -451,7 +448,7 @@
               "width": "3",
               "line-color": "#ff0000",
               "curve-style": "straight",
-              "target-arrow-shape": "triangle",
+              "target-arrow-shape": "vee",
               "target-arrow-color": "#FF0000"
             }
           }

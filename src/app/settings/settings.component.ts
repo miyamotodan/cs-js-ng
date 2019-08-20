@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
       console.log("GRAPH LOADED");
       console.log(this.graph);
 
-      this.data.styles = this.graph.options.styles;
+      this.data = this.graph.options;
       this.loaded = Promise.resolve(true);
     });
   }
@@ -73,7 +73,12 @@ export class SettingsComponent implements OnInit {
                 "text-halign": { "type": "string", "title": "text-halign", "enum": ["left", "right", "center"] },
                 "text-valign": { "type": "string", "title": "text-valign", "enum": ["top", "bottom", "center"] },
                 "width": { "type": "string", "title": "width" },
-                "height": { "type": "string", "title": "height" }
+                "height": { "type": "string", "title": "height" },
+
+                "line-color": { "type": "string", "format": "color", "title": "line-color", "default": "#000000" },
+                "curve-style": { "type": "string", "title": "curve-style", "enum": ["straight", "bezier", "segments","unbundled-bezier","haystack","taxi"] },
+                "target-arrow-shape": { "type": "string", "title": "target-arrow-shape", "enum": ["triangle", "triangle-tee", "triangle-cross", "triangle-backcurve", "vee", "tee", "square", "circle", "diamond", "chevron", "none"] },
+                "target-arrow-color": { "type": "string", "format": "color", "title": "target-arrow-color", "default": "#000000" },
               }
             }
           }
@@ -82,6 +87,7 @@ export class SettingsComponent implements OnInit {
       "type": "object",
       "title": "Stili",
       "properties": {
+        "layout": { "type": "string", "title": "layout" },
         "styles": {
           "type": "array",
           "minItems": 1,
@@ -91,7 +97,10 @@ export class SettingsComponent implements OnInit {
     };
 
     this.form = [
-
+      {
+        "key": "layout", "flex": "1 1 1200px",
+        "notitle": false, "placeholder": "random,cola,..."
+      },
       {
         "key": "styles",
         "type": "array",
@@ -107,39 +116,75 @@ export class SettingsComponent implements OnInit {
             },
             {
               "key": "styles[].style.shape", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "oval,rectangle,star,..."
+              "notitle": false, "placeholder": "oval,rectangle,star,...",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.background-color", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "color"
+              "notitle": false, "placeholder": "color",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.border-color", "flex": "1 1 300px", 
-              "notitle": false, "placeholder": "color"
+              "notitle": false, "placeholder": "color",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.border-width", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "width"
+              "notitle": false, "placeholder": "width",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.label", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "label"
+              "notitle": false, "placeholder": "label",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.text-halign", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "left,right,center"
+              "notitle": false, "placeholder": "left,right,center",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.text-valign", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "top,bottom,center"
+              "notitle": false, "placeholder": "top,bottom,center",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.width", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "width"
+              "notitle": false, "placeholder": "width",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
               "key": "styles[].style.height", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "height"
+              "notitle": false, "placeholder": "height",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
+            },
+
+
+            {
+              "key": "styles[].style.width", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "width",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
+            },
+            {
+              "key": "styles[].style.line-color", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "color",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
+            },
+            {
+              "key": "styles[].style.target-arrow-color", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "color",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
+            },
+            {
+              "key": "styles[].style.curve-style", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "style",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
+            },
+            {
+              "key": "styles[].style.target-arrow-shape", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "shape",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             }
           ]
         }
