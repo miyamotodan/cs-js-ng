@@ -27,6 +27,8 @@ export class CscompComponent implements OnInit {
 
   //gestione dell'edit di un nodo
   private editNode = null;
+  //gestione dell'edit di un arco
+  private editEdge = null;
 
   //posizione del mouse
   private position = null;
@@ -41,7 +43,7 @@ export class CscompComponent implements OnInit {
   private meanCluster = 0;
 
   //componente figlio form
-  @ViewChild(CsformComponent) child: CsformComponent ;
+  @ViewChild(CsformComponent) childForm: CsformComponent ;
 
   constructor(public restApi: GraphRestApiService) {
   }
@@ -104,10 +106,24 @@ export class CscompComponent implements OnInit {
     });
   }
 
-  //imposto i valori del nodo nel form
+  //imposto i valori del nodo/arco nel form
   sendFormData = (n) => {
-      this.editNode = n;
-      this.child.setData(n[0].data());
+
+      console.log(n.data('type'))
+      if (n.data('type')=="node") {
+
+        this.editNode = n;
+        this.childForm.setForm("node");
+        this.childForm.setData(n[0].data());
+
+      } else {
+
+        this.editEdge = n;
+        this.childForm.setForm("edge");
+        this.childForm.setData(n[0].data());
+
+      }
+
       n.select();
       //apro l'accordion del form
       const el1 = $('#collapseOne');
@@ -122,8 +138,16 @@ export class CscompComponent implements OnInit {
           this.editNode.removeData();
           this.editNode.data(d);
           this.editNode.deselect();
-      }
-      this.editNode=null;
+      } else
+      if(this.editEdge!=null) {
+        this.editEdge.removeData();
+        this.editEdge.data(d);
+        this.editEdge.deselect();
+    }
+
+    this.editEdge=null;
+    this.editNode=null;
+
   }
 
   //ritorna l'oggetto cy
@@ -188,8 +212,8 @@ export class CscompComponent implements OnInit {
 
   ngOnInit() {
 
-    //si dichiara al child
-    this.child.setParent(this);
+    //si dichiara al childForm
+    this.childForm.setParent(this);
 
     //all'inizio carica i dati
     this.load().then( () =>{
@@ -246,7 +270,7 @@ export class CscompComponent implements OnInit {
         //chiudo l'arco
         var edgeId = this.sourceNode.id() + '-' + ele.id();
         var eles = ele.cy().add([
-          { group: 'edges', data: { id: edgeId, source: this.sourceNode.id(), target: ele.id() } }
+          { group: 'edges', data: { id: edgeId, source: this.sourceNode.id(), target: ele.id(), type : "edge", "weight": 0 } }
         ]);
         computeValues();
         resetDraw();
@@ -284,11 +308,15 @@ export class CscompComponent implements OnInit {
       }
     };
 
-    //resetta l'edit del nodo
+    //resetta l'edit del nodo/arco
     let resetEdit = () => {
       if (this.editNode) {
         this.editNode = null;
-        this.child.setActive(false);
+        this.childForm.setActive(false);
+      } else
+      if (this.editEdge) {
+        this.editEdge = null;
+        this.childForm.setActive(false);
       }
     };
 
@@ -450,7 +478,7 @@ export class CscompComponent implements OnInit {
       selector: 'node', // elements matching this Cytoscape.js selector will trigger cxtmenus
       commands: [ // an array of commands to list in the menu or a function that returns the array
 
-        { // example command
+        { // Edit di un nodo
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-edit fa-2x">' + iconLabel('Edit') + '</span>', // html/text content to be displayed in the menu
           contentStyle: {}, // css key:value pairs to set the command's css in js if you want
@@ -460,7 +488,7 @@ export class CscompComponent implements OnInit {
           },
           enabled: true // whether the command is selectable
         },
-        { // example command
+        { // cancellazione di un nodo
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-trash fa-2x">' + iconLabel('delete') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
@@ -473,7 +501,7 @@ export class CscompComponent implements OnInit {
           },
           enabled: true // whether the command is selectable
         },
-        { // example command
+        { // apertura e chiusura link
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-external-link fa-2x">' + iconLabel('Link') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
@@ -503,16 +531,17 @@ export class CscompComponent implements OnInit {
       selector: 'edge', // elements matching this Cytoscape.js selector will trigger cxtmenus
       commands: [ // an array of commands to list in the menu or a function that returns the array
 
-        { // example command
+        { // edit di un arco
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-edit fa-2x">' + iconLabel('Edit') + '</span>', // html/text content to be displayed in the menu
           contentStyle: {}, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
             console.log(ele.id()) // `ele` holds the reference to the active element
+            sendFormData(ele);
           },
           enabled: true // whether the command is selectable
         },
-        { // example command
+        { // cancellazione di un arco
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-trash fa-2x">' + iconLabel('Delete') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
@@ -548,7 +577,7 @@ export class CscompComponent implements OnInit {
       selector: 'core', // elements matching this Cytoscape.js selector will trigger cxtmenus
       commands: [ // an array of commands to list in the menu or a function that returns the array
 
-        { // example command
+        { // layout
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-check fa-2x">' + iconLabel('Layout') + '</span>', // html/text content to be displayed in the menu
           contentStyle: {}, // css key:value pairs to set the command's css in js if you want
@@ -557,7 +586,7 @@ export class CscompComponent implements OnInit {
           },
           enabled: true // whether the command is selectable
         },
-        { // example command
+        { // inserimento di un nodo
           fillColor: 'rgba(200, 200, 200, 0.75)', // optional: custom background color for item
           content: '<span class="fa fa-plus-square fa-2x">' + iconLabel('Add') + '</span>', // html/text content to be displayed in the menu
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want

@@ -185,6 +185,11 @@ export class SettingsComponent implements OnInit {
               "key": "styles[].style.target-arrow-shape", "flex": "1 1 300px",
               "notitle": false, "placeholder": "shape",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
+            },
+            {
+              "key": "styles[].style.label", "flex": "1 1 300px",
+              "notitle": false, "placeholder": "label",
+              condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             }
           ]
         }

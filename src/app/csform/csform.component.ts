@@ -12,15 +12,27 @@ export class CsformComponent implements OnInit {
 
   private active=false;
 
+  //configurazioni usate dal componente per il form
   private data;
   private schema;
   private form;
+
+  //definizione dei diversi form possibili
+  
+  //nodo
+  private nodeFormData;
+  private nodeFormSchema;
+  private nodeFormForm;
+  //arco
+  private edgeFormData;
+  private edgeFormSchema;
+  private edgeFormForm;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.schema = {
+    this.nodeFormSchema = {
       type: "object",
       properties: {
         id: { type: "string", minLength: 1, title: "id", description: "node id" },
@@ -31,17 +43,38 @@ export class CsformComponent implements OnInit {
       }
     }
 
-    this.data = {
+    this.edgeFormSchema = {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        source: { type: "string" },
+        target: { type: "string" },
+        weight: { type: "number" },
+        type: { type: "string" }
+      }
+    }
+
+    /*
+    this.nodeFormData = {
       id: "",
       weight: 10,
       type: "",
-      class: "",
+      class: "node",
       label: ""
     };
 
-    this.form = [
+    this.edgeFormData = {
+      id: "",
+      weight: 0,
+      type: "edge",
+      class: "",
+      label: ""
+    };
+    */
+
+    this.nodeFormForm = [
         
-        //{ key: "id", type: "number" },
+        //{ key: "id", type: "text" },
         { key: "label", type: "text" },
         { key: "weight", type: "number" },
         { key: "type", type: "text" },
@@ -50,13 +83,35 @@ export class CsformComponent implements OnInit {
       
     ];
 
+    this.edgeFormForm = [
+        
+      //{ key: "id", type: "text" },
+      { key: "weight", type: "number" }
+      
+  ];
+
   }
 
-  setActive(b) {
+  setForm(t:string) {
+
+    if (t=="node") {
+      this.data = this.nodeFormData;
+      this.form = this.nodeFormForm;
+      this.schema = this.nodeFormSchema;
+    } else 
+    if (t=="edge") {
+      this.data = this.edgeFormData;
+      this.form = this.edgeFormForm;
+      this.schema = this.edgeFormSchema;
+    }
+
+  }
+
+  setActive(b:boolean) {
       this.active=b
   }
 
-  submit (d) {
+  submit (d:any) {
     console.log(d);
     if (d!=null) {
       this.parent.receiveFormData(d);
@@ -64,12 +119,12 @@ export class CsformComponent implements OnInit {
     }
   }
 
-  setParent(p) {
+  setParent(p:any) {
     this.parent=p;
   }
 
 
-  setData(d) {
+  setData(d:any) {
     this.active=true;
     this.data=d;
   }

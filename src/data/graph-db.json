@@ -7,12 +7,12 @@
             "id": "1",
             "weight": 32,
             "type": "node",
-            "label": "nome1",
-            "class": "standard"
+            "label": "ACCUMOLI",
+            "class": "stazione"
           },
           "position": {
-            "x": 479.49550383918114,
-            "y": 136.35934069917164
+            "x": 464.4587117184419,
+            "y": 267.40289719486583
           },
           "group": "nodes",
           "removed": false,
@@ -25,14 +25,14 @@
         {
           "data": {
             "id": "2",
-            "weight": 51,
+            "weight": 40,
             "type": "node",
-            "class": "standard",
-            "label": "pippo_baudo"
+            "class": "variabile",
+            "label": "precipitazione"
           },
           "position": {
-            "x": 560.0322314926241,
-            "y": 158.64862660991562
+            "x": 629.1267886504676,
+            "y": 159.58729204363908
           },
           "group": "nodes",
           "removed": false,
@@ -45,14 +45,14 @@
         {
           "data": {
             "id": "3",
-            "weight": 44,
-            "label": "daniele",
+            "weight": 40,
+            "label": "temperatura_aria",
             "type": "node",
-            "class": "standard"
+            "class": "variabile"
           },
           "position": {
-            "x": 486.28055255689554,
-            "y": 253.65453313138036
+            "x": 282.80442359581076,
+            "y": 245.1235228822154
           },
           "group": "nodes",
           "removed": false,
@@ -65,13 +65,14 @@
         {
           "data": {
             "id": "4",
-            "weight": 35,
-            "label": "label_a",
-            "class": "standard"
+            "weight": 40,
+            "label": "Temp_max_ora_2m",
+            "class": "grandezza",
+            "type": "node"
           },
           "position": {
-            "x": 507.75816885801737,
-            "y": 378.38238114993516
+            "x": 69.78892871935074,
+            "y": 265.5546994125194
           },
           "group": "nodes",
           "removed": false,
@@ -84,12 +85,14 @@
         {
           "data": {
             "id": "5",
-            "weight": 20,
-            "label": "label_c"
+            "weight": 40,
+            "label": "precipitazione_oraria",
+            "type": "node",
+            "class": "grandezza"
           },
           "position": {
-            "x": 548.65431693888,
-            "y": 477.4135574727866
+            "x": 662.6654075984746,
+            "y": 48.7055483555364
           },
           "group": "nodes",
           "removed": false,
@@ -102,12 +105,14 @@
         {
           "data": {
             "id": "6",
-            "weight": 35,
-            "label": "label_b"
+            "weight": 40,
+            "label": "umid_rel_aria_ora_med_2m",
+            "type": "node",
+            "class": "grandezza"
           },
           "position": {
-            "x": 611.807945983398,
-            "y": 400.6816910030273
+            "x": 868.2911447983626,
+            "y": 215.29207597351942
           },
           "group": "nodes",
           "removed": false,
@@ -120,12 +125,14 @@
         {
           "data": {
             "id": "7",
-            "weight": 20,
-            "label": "label_d"
+            "weight": 40,
+            "label": "Temp_med_ora_2m",
+            "type": "node",
+            "class": "grandezza"
           },
           "position": {
-            "x": 600.2563547304261,
-            "y": 293.8771663343327
+            "x": 115.40487635070656,
+            "y": 358.0111716364588
           },
           "group": "nodes",
           "removed": false,
@@ -138,13 +145,14 @@
         {
           "data": {
             "id": "8",
-            "weight": 25,
-            "class": "standard",
-            "label": "pollo"
+            "weight": 40,
+            "class": "variabile",
+            "label": "umidità_aria",
+            "type": "node"
           },
           "position": {
-            "x": 376.5531310833335,
-            "y": 214.00766975933115
+            "x": 723.2211124839364,
+            "y": 286.6974275879167
           },
           "group": "nodes",
           "removed": false,
@@ -158,11 +166,93 @@
           "data": {
             "id": "9",
             "weight": 45,
-            "label": "ffff"
+            "label": "Temp_min_ora_2m",
+            "type": "nodel",
+            "class": "grandezza"
           },
           "position": {
-            "x": 374.1617945172424,
-            "y": 296.97503384012043
+            "x": 95.52583692703566,
+            "y": 141.48787011200486
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10",
+            "weight": 40,
+            "type": "node",
+            "class": "stazione",
+            "label": "ACQUAPENDENTE"
+          },
+          "position": {
+            "x": 520.17904242073,
+            "y": 363.7918504804327
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "11",
+            "weight": 40,
+            "type": "node",
+            "class": "grandezza",
+            "label": "umid_rel_aria_ora_min_2m"
+          },
+          "position": {
+            "x": 772.3111256488713,
+            "y": 406.93641725191657
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "12",
+            "weight": 40,
+            "type": "node",
+            "class": "grandezza",
+            "label": "umid_rel_aria_ora_max_2m"
+          },
+          "position": {
+            "x": 886.9893105793967,
+            "y": 328.2540335787327
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "13",
+            "weight": 40,
+            "type": "node",
+            "class": "stazione",
+            "label": "AGOSTA"
+          },
+          "position": {
+            "x": 429.6613303981417,
+            "y": 176.6771026487843
           },
           "group": "nodes",
           "removed": false,
@@ -176,7 +266,9 @@
           "data": {
             "id": "2-1",
             "source": "2",
-            "target": "1"
+            "target": "1",
+            "type": "edge",
+            "weight": 0
           },
           "position": {
             "x": 0,
@@ -194,7 +286,9 @@
           "data": {
             "id": "3-1",
             "source": "3",
-            "target": "1"
+            "target": "1",
+            "type": "edge",
+            "weight": 0
           },
           "position": {
             "x": 0,
@@ -210,135 +304,11 @@
         },
         {
           "data": {
-            "id": "2-3",
-            "source": "2",
-            "target": "3"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "4-3",
-            "source": "4",
-            "target": "3"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "6-5",
-            "source": "6",
-            "target": "5"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "6-4",
-            "source": "6",
-            "target": "4"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "4-5",
-            "source": "4",
-            "target": "5"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "7-3",
-            "source": "7",
-            "target": "3"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "6-7",
-            "source": "6",
-            "target": "7"
-          },
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "group": "edges",
-          "removed": false,
-          "selected": false,
-          "selectable": true,
-          "locked": false,
-          "grabbable": true,
-          "classes": ""
-        },
-        {
-          "data": {
-            "id": "8-3",
+            "id": "8-1",
             "source": "8",
-            "target": "3"
+            "target": "1",
+            "type": "edge",
+            "weight": 0
           },
           "position": {
             "x": 0,
@@ -356,7 +326,9 @@
           "data": {
             "id": "9-3",
             "source": "9",
-            "target": "3"
+            "target": "3",
+            "type": "edge",
+            "weight": 0
           },
           "position": {
             "x": 0,
@@ -372,9 +344,231 @@
         },
         {
           "data": {
-            "id": "9-8",
-            "source": "9",
-            "target": "8"
+            "id": "4-3",
+            "source": "4",
+            "target": "3",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "7-3",
+            "source": "7",
+            "target": "3",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "5-2",
+            "source": "5",
+            "target": "2",
+            "type": "edge",
+            "weight": 15
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "6-8",
+            "source": "6",
+            "target": "8",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-3",
+            "source": "10",
+            "target": "3",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-2",
+            "source": "10",
+            "target": "2",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-8",
+            "source": "10",
+            "target": "8",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "12-8",
+            "source": "12",
+            "target": "8",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "11-8",
+            "source": "11",
+            "target": "8",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "13-2",
+            "source": "13",
+            "target": "2",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "13-3",
+            "source": "13",
+            "target": "3",
+            "type": "edge",
+            "weight": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "13-8",
+            "source": "13",
+            "target": "8",
+            "type": "edge",
+            "weight": 0
           },
           "position": {
             "x": 0,
@@ -398,6 +592,20 @@
             "selector": "node",
             "style": {
               "shape": "ellipse",
+              "background-color": "#222222",
+              "border-color": "#111111",
+              "border-width": 1,
+              "label": "data(label)",
+              "text-halign": "top",
+              "text-valign": "left",
+              "width": "20",
+              "height": "20"
+            }
+          },
+          {
+            "selector": "node[class=\"grandezza\"]",
+            "style": {
+              "shape": "ellipse",
               "background-color": "#ffaaff",
               "border-color": "#aa0055",
               "border-width": 3,
@@ -405,20 +613,21 @@
               "text-halign": "center",
               "text-valign": "center",
               "width": "data(weight)",
-              "height": "data(weight)",
-              "line-color": "#000000",
-              "target-arrow-color": "#000000"
+              "height": "data(weight)"
             }
           },
           {
-            "selector": "node[class=\"standard\"]",
+            "selector": "node[class=\"variabile\"]",
             "style": {
               "shape": "rectangle",
               "background-color": "#92a8d1",
               "border-color": "#034f84",
               "border-width": 3,
-              "line-color": "#000000",
-              "target-arrow-color": "#000000"
+              "label": "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "width": "data(weight)",
+              "height": "data(weight)"
             }
           },
           {
@@ -436,10 +645,11 @@
             "style": {
               "background-color": "#000000",
               "border-color": "#000000",
+              "label": "data(weight)",
               "width": "3",
               "line-color": "#808080",
               "curve-style": "straight",
-              "target-arrow-shape": "triangle",
+              "target-arrow-shape": "circle",
               "target-arrow-color": "#808080"
             }
           },
@@ -448,11 +658,26 @@
             "style": {
               "background-color": "#000000",
               "border-color": "#000000",
+              "label": "data(weight)",
               "width": "3",
               "line-color": "#ff0000",
               "curve-style": "straight",
-              "target-arrow-shape": "triangle",
+              "target-arrow-shape": "circle",
               "target-arrow-color": "#FF0000"
+            }
+          },
+          {
+            "selector": "node[class=\"stazione\"]",
+            "style": {
+              "shape": "diamond",
+              "background-color": "#808080",
+              "border-color": "#000000",
+              "border-width": 2,
+              "label": "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "width": "data(weight)",
+              "height": "data(weight)"
             }
           }
         ]
