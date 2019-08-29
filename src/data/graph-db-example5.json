@@ -1,0 +1,495 @@
+{
+  "graphs": [
+    {
+      "graph": [
+        {
+          "data": {
+            "id": "1",
+            "weight": 32,
+            "type": "node",
+            "label": "ACCUMOLI",
+            "class": "stazione"
+          },
+          "position": {
+            "x": 508.32912087942594,
+            "y": 179.8685130631021
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "2",
+            "weight": 40,
+            "type": "node",
+            "class": "variabile",
+            "label": "precipitazione"
+          },
+          "position": {
+            "x": 761.5924548787934,
+            "y": 222.36226186431463
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "3",
+            "weight": 40,
+            "label": "temperatura_aria",
+            "type": "node",
+            "class": "variabile"
+          },
+          "position": {
+            "x": 451.65345275014664,
+            "y": 281.5935009751568
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "4",
+            "weight": 40,
+            "label": "Temp_max_ora_2m",
+            "class": "grandezza",
+            "type": "node"
+          },
+          "position": {
+            "x": 385.7658468770016,
+            "y": 396.9866497827032
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "5",
+            "weight": 40,
+            "label": "precipitazione_oraria",
+            "type": "node",
+            "class": "grandezza"
+          },
+          "position": {
+            "x": 762.0592759032395,
+            "y": 126.39623163873226
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "6",
+            "weight": 40,
+            "label": "umid_rel_aria_ora_med_2m",
+            "type": "node",
+            "class": "grandezza"
+          },
+          "position": {
+            "x": 448.74713795762335,
+            "y": -4.113467230478544
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "7",
+            "weight": 40,
+            "label": "Temp_med_ora_2m",
+            "type": "node",
+            "class": "grandezza"
+          },
+          "position": {
+            "x": 514.9145176754272,
+            "y": 404.4259408742086
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "8",
+            "weight": 40,
+            "class": "variabile",
+            "label": "umidità_aria",
+            "type": "node"
+          },
+          "position": {
+            "x": 625.7486242357357,
+            "y": 95.02860171680216
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "9",
+            "weight": 45,
+            "label": "Temp_min_ora_2m",
+            "type": "nodel",
+            "class": "grandezza"
+          },
+          "position": {
+            "x": 260.24821174847034,
+            "y": 268.88640113374356
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10",
+            "weight": 40,
+            "type": "node",
+            "class": "stazione",
+            "label": "ACQUAPENDENTE"
+          },
+          "position": {
+            "x": 623.6747935209617,
+            "y": 293.4715131609349
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "2-1",
+            "source": "2",
+            "target": "1"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "3-1",
+            "source": "3",
+            "target": "1"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "8-1",
+            "source": "8",
+            "target": "1"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "9-3",
+            "source": "9",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "4-3",
+            "source": "4",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "7-3",
+            "source": "7",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "5-2",
+            "source": "5",
+            "target": "2"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "6-8",
+            "source": "6",
+            "target": "8"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-3",
+            "source": "10",
+            "target": "3"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-2",
+            "source": "10",
+            "target": "2"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        },
+        {
+          "data": {
+            "id": "10-8",
+            "source": "10",
+            "target": "8"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "group": "edges",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "classes": ""
+        }
+      ],
+      "id": 1,
+      "name": "nome",
+      "options": {
+        "layout": "cola",
+        "styles": [
+          {
+            "selector": "node[class=\"grandezza\"]",
+            "style": {
+              "shape": "ellipse",
+              "background-color": "#ffaaff",
+              "border-color": "#aa0055",
+              "border-width": 3,
+              "label": "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "width": "data(weight)",
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
+            }
+          },
+          {
+            "selector": "node[class=\"variabile\"]",
+            "style": {
+              "shape": "rectangle",
+              "background-color": "#92a8d1",
+              "border-color": "#034f84",
+              "border-width": 3,
+              "label": "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "width": "data(weight)",
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
+            }
+          },
+          {
+            "selector": "node:selected",
+            "style": {
+              "background-color": "#ffef96",
+              "border-color": "#ff0000",
+              "border-width": 3,
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
+            }
+          },
+          {
+            "selector": "edge",
+            "style": {
+              "background-color": "#000000",
+              "border-color": "#000000",
+              "width": "3",
+              "line-color": "#808080",
+              "curve-style": "straight",
+              "target-arrow-shape": "triangle",
+              "target-arrow-color": "#808080"
+            }
+          },
+          {
+            "selector": "edge:selected",
+            "style": {
+              "background-color": "#000000",
+              "border-color": "#000000",
+              "width": "3",
+              "line-color": "#ff0000",
+              "curve-style": "straight",
+              "target-arrow-shape": "triangle",
+              "target-arrow-color": "#FF0000"
+            }
+          },
+          {
+            "selector": "node[class=\"stazione\"]",
+            "style": {
+              "shape": "diamond",
+              "background-color": "#808080",
+              "border-color": "#000000",
+              "border-width": 2,
+              "label": "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "width": "data(weight)",
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

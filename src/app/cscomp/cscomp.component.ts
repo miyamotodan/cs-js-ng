@@ -563,18 +563,20 @@ export class CscompComponent implements OnInit {
           contentStyle: { 'background-image': 'PushSubscriptionOptions.gif' }, // css key:value pairs to set the command's css in js if you want
           select: function (ele) { // a function to execute when the command is selected
             var pos = this.position;
-            //console.log(pos);
+            console.log(pos);
             //aggiungo un nodo con l'ID = max(ID)+1
-            let nodeId = getCy().nodes().max(function(i){console.log(i);return i.data().id});
-            console.log(nodeId);
+            let nodeId = getCy().nodes().max(function(i){return Number(i.data().id)});
+            console.log("maxId:"+nodeId.value);
 
-            let newId : number = (nodeId.ele==null) ? 0 : Number(nodeId.ele.id());
+            var newId : number = (nodeId.value==-Infinity) ? 0 : Number(nodeId.value);
             newId++;
-            console.log(newId);
+            console.log("newId:"+newId);
+            
             var eles = this.add([
-              { group: 'nodes', data: { id: ""+newId, weight: 10, type: "", class: "", label: "" }, renderedPosition: pos }
+              { group: 'nodes', data: { id: newId, weight: 40, type: "node", class: "", label: "node_"+newId }, renderedPosition: pos }
             ]);
             computeValues();
+            
           },
           enabled: true // whether the command is selectable
         }
