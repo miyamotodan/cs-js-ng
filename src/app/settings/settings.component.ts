@@ -66,8 +66,8 @@ export class SettingsComponent implements OnInit {
               "title": "Proprietà",
               "properties": {
                 "shape": { "type": "string", "title": "shape" },
-                "background-color": { "type": "string", "format": "color", "title": "background-color", "default": "#000000" },
-                "border-color": { "type": "string", "format": "color", "title": "border-color", "default": "#000000" },
+                "background-color": { "type": "string", "format": "color", "title": "background-color" },
+                "border-color": { "type": "string", "format": "color", "title": "border-color" },
                 "border-width": { "type": "number", "title": "border-width" },
                 "label": { "type": "string", "title": "label" },
                 "text-halign": { "type": "string", "title": "text-halign", "enum": ["left", "right", "center"] },
@@ -75,10 +75,10 @@ export class SettingsComponent implements OnInit {
                 "width": { "type": "string", "title": "width" },
                 "height": { "type": "string", "title": "height" },
 
-                "line-color": { "type": "string", "format": "color", "title": "line-color", "default": "#000000" },
+                "line-color": { "type": "string", "format": "color", "title": "line-color" },
                 "curve-style": { "type": "string", "title": "curve-style", "enum": ["straight", "bezier", "segments","unbundled-bezier","haystack","taxi"] },
                 "target-arrow-shape": { "type": "string", "title": "target-arrow-shape", "enum": ["triangle", "triangle-tee", "triangle-cross", "triangle-backcurve", "vee", "tee", "square", "circle", "diamond", "chevron", "none"] },
-                "target-arrow-color": { "type": "string", "format": "color", "title": "target-arrow-color", "default": "#000000" },
+                "target-arrow-color": { "type": "string", "format": "color", "title": "target-arrow-color" },
               }
             }
           }
@@ -98,7 +98,7 @@ export class SettingsComponent implements OnInit {
 
     this.form = [
       {
-        "key": "layout", "flex": "1 1 1200px",
+        "key": "layout", "flex": "1 1 100%",
         "notitle": false, "placeholder": "random,cola,..."
       },
       {
@@ -111,86 +111,87 @@ export class SettingsComponent implements OnInit {
           "flex-flow": "row wrap",
           "items": [
             {
-              "key": "styles[].selector", "flex": "1 1 1200px",
+              "key": "styles[].selector", "flex": "1 1 100%",
               "notitle": false, "placeholder": "selector"
             },
             {
-              "key": "styles[].style.shape", "flex": "1 1 300px",
+              "key": "styles[].style.shape", "flex": "2 2 auto",
               "notitle": false, "placeholder": "oval,rectangle,star,...",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.background-color", "flex": "1 1 300px",
+              "key": "styles[].style.background-color", "flex": "1 1 auto",
               "notitle": false, "placeholder": "color",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.border-color", "flex": "1 1 300px", 
+              "key": "styles[].style.border-color", "flex": "1 1 auto",
               "notitle": false, "placeholder": "color",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.border-width", "flex": "1 1 300px",
+              "key": "styles[].style.border-width", "flex": "1 1 auto",
               "notitle": false, "placeholder": "width",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.label", "flex": "1 1 300px",
+              "key": "styles[].style.label", "flex": "1 1 auto",
               "notitle": false, "placeholder": "label",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.text-halign", "flex": "1 1 300px",
+              "key": "styles[].style.text-halign", "flex": "1 1 10%",
               "notitle": false, "placeholder": "left,right,center",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.text-valign", "flex": "1 1 300px",
+              "key": "styles[].style.text-valign", "flex": "1 1 10%",
               "notitle": false, "placeholder": "top,bottom,center",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.width", "flex": "1 1 300px",
+              "key": "styles[].style.width", "flex": "1 1 auto",
               "notitle": false, "placeholder": "width",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.height", "flex": "1 1 300px",
+              "key": "styles[].style.height", "flex": "1 1 auto",
               "notitle": false, "placeholder": "height",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("node")} catch(e) { console.log(e); return false }' }
             },
 
+//edges
 
             {
-              "key": "styles[].style.width", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "width",
+              "key": "styles[].style.label", "flex": "1 1 auto",
+              "notitle": false, "placeholder": "label",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.line-color", "flex": "1 1 300px",
+              "key": "styles[].style.line-color", "flex": "1 1 auto",
               "notitle": false, "placeholder": "color",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.target-arrow-color", "flex": "1 1 300px",
+              "key": "styles[].style.target-arrow-color", "flex": "1 1 auto",
               "notitle": false, "placeholder": "color",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.curve-style", "flex": "1 1 300px",
+              "key": "styles[].style.curve-style", "flex": "1 1 10%",
               "notitle": false, "placeholder": "style",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.target-arrow-shape", "flex": "1 1 300px",
+              "key": "styles[].style.target-arrow-shape", "flex": "1 1 10%",
               "notitle": false, "placeholder": "shape",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
             },
             {
-              "key": "styles[].style.label", "flex": "1 1 300px",
-              "notitle": false, "placeholder": "label",
+              "key": "styles[].style.width", "flex": "1 1 auto",
+              "notitle": false, "placeholder": "width",
               condition: { functionBody: 'try {return model.styles[arrayIndices[0]].selector.includes("edge")} catch(e) { console.log(e); return false }' }
-            }
+            },
           ]
         }
         ]
