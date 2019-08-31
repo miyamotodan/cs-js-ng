@@ -3,12 +3,19 @@ import { GraphRestApiService } from '../shared/graph-rest-api.service';
 
 import * as $ from 'jquery';
 import * as cs from 'cytoscape';
-import * as cscola from 'cytoscape-cola';
-import * as csctxm from 'cytoscape-cxtmenu';
 import { Graph } from '../shared/graph';
 import { CsformComponent } from '../csform/csform.component';
 
+
+import popper from 'cytoscape-popper';
+cs.use( popper );
+
+import tippy from 'tippy.js';
+
+import * as cscola from 'cytoscape-cola';
 cs.use(cscola);
+
+import * as csctxm from 'cytoscape-cxtmenu';
 cs.use(csctxm);
 
 @Component({
@@ -97,7 +104,8 @@ export class CscompComponent implements OnInit {
 
         console.log("cscomp.load : " + this.G.id + ", " + this.G.name + ", " + this.G.graph.length);
 
-        this.setGraph();
+        //se il caricamento è successivo a OnInit (da menù) cy già esiste altrimenti no
+        if (this.cy) this.setGraph();
 
         //fine del task asincrono (senza ritorno di valore)
         resolve();
@@ -116,7 +124,8 @@ export class CscompComponent implements OnInit {
         this.childForm.setForm("node");
         this.childForm.setData(n[0].data());
 
-      } else {
+      } else
+      if (n.data('type')=="edge")  {
 
         this.editEdge = n;
         this.childForm.setForm("edge");
@@ -218,6 +227,8 @@ export class CscompComponent implements OnInit {
     //all'inizio carica i dati
     this.load().then( () =>{
 
+      console.log('LOADED');
+
       console.log(this.G);
 
       this.initialize();
@@ -247,8 +258,46 @@ export class CscompComponent implements OnInit {
 
     }
 
-    console.log('LOADED');
-    if (this.cy) console.log(this.G);
+    //************ TEST cytoscape-popper  + tippy
+
+      tippy.setDefaults({
+        distance:20,
+        arrow: true,
+        placement: 'top',
+        hideOnClick: false,
+        multiple: false,
+        sticky: true,
+        animateFill: false,
+        animation: 'scale',
+        duration: [500,500],
+        theme: 'dark',
+        interactive : true
+      })
+
+      //creo i tip per tutti i nodi, forse sarebbe meglio farli solo su richiesta (se ci sono molti nodi)
+      this.cy.nodes().forEach(
+        (n) => {
+          let ref = n.popperRef(); // used only for positioning
+          let t : any = tippy(ref, { content: "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"</p>" } );
+          n.on('tap', () => { console.log(t.state); if (!t.state.isVisible) t.show(); else t.hide(); } );
+          //salvo un riferimento al tip
+          n._tippy=t;
+        }
+      )
+
+      //creo i tip per tutti gli archi, forse sarebbe meglio farli solo su richiesta (se ci sono molti archi)
+      this.cy.edges().forEach(
+        (e) => {
+          let ref = e.popperRef(); // used only for positioning
+          let t : any = tippy(ref, { content: "<p><b>"+e.data('weight')+"</b></p>" } );
+          e.on('tap', () => { console.log(t.state); if (!t.state.isVisible) t.show(); else t.hide(); } );
+          //salvo un riferimento al tip
+          e._tippy=t;
+        }
+      )
+
+
+    //************
 
     //calcolo i valori riassuntivi
     if (this.cy) this.computeValues();
@@ -270,7 +319,7 @@ export class CscompComponent implements OnInit {
         //chiudo l'arco
         var edgeId = this.sourceNode.id() + '-' + ele.id();
         var eles = ele.cy().add([
-          { group: 'edges', data: { id: edgeId, source: this.sourceNode.id(), target: ele.id(), type : "edge", "weight": 0 } }
+          { group: 'edges', data: { id: edgeId, source: this.sourceNode.id(), target: ele.id(), type : "edge", "weight": 1 } }
         ]);
         computeValues();
         resetDraw();
@@ -430,6 +479,16 @@ export class CscompComponent implements OnInit {
     //memorizza la posizione del mouse
     this.cy.bind("mousemove", function (e) { this.position = e.position; });
 
+    /*
+    * eventi che scatenano il menu contestuale devono eliminare eventuali popup su nudi e archi
+    */
+    this.cy.on("cxttapstart taphold", function (event) {
+      console.log("cxttapstart taphold");
+      var n = event.target;
+      if (n._tippy && n._tippy.state.isVisible) n._tippy.hide();
+    });
+
+
     /**
      * click del mouse su un elemento o sul fondo
      */
@@ -467,6 +526,8 @@ export class CscompComponent implements OnInit {
       }
 
     });
+
+
 
     /**
      * IMPOSTO I MENU CONTESTUALI
@@ -600,12 +661,12 @@ export class CscompComponent implements OnInit {
             var newId : number = (nodeId.value==-Infinity) ? 0 : Number(nodeId.value);
             newId++;
             console.log("newId:"+newId);
-            
+
             var eles = this.add([
               { group: 'nodes', data: { id: newId, weight: 40, type: "node", class: "", label: "node_"+newId }, renderedPosition: pos }
             ]);
             computeValues();
-            
+
           },
           enabled: true // whether the command is selectable
         }

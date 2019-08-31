@@ -167,7 +167,7 @@
             "id": "9",
             "weight": 45,
             "label": "Temp_min_ora_2m",
-            "type": "nodel",
+            "type": "node",
             "class": "grandezza"
           },
           "position": {
@@ -268,7 +268,7 @@
             "source": "2",
             "target": "1",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -288,7 +288,7 @@
             "source": "3",
             "target": "1",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -308,7 +308,7 @@
             "source": "8",
             "target": "1",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -328,7 +328,7 @@
             "source": "9",
             "target": "3",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -348,7 +348,7 @@
             "source": "4",
             "target": "3",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -368,7 +368,7 @@
             "source": "7",
             "target": "3",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -388,7 +388,7 @@
             "source": "5",
             "target": "2",
             "type": "edge",
-            "weight": 15
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -408,7 +408,7 @@
             "source": "6",
             "target": "8",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -428,7 +428,7 @@
             "source": "10",
             "target": "3",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -448,7 +448,7 @@
             "source": "10",
             "target": "2",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -468,7 +468,7 @@
             "source": "10",
             "target": "8",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -488,7 +488,7 @@
             "source": "12",
             "target": "8",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -508,7 +508,7 @@
             "source": "11",
             "target": "8",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -528,7 +528,7 @@
             "source": "13",
             "target": "2",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -548,7 +548,7 @@
             "source": "13",
             "target": "3",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -568,7 +568,7 @@
             "source": "13",
             "target": "8",
             "type": "edge",
-            "weight": 0
+            "weight": 1
           },
           "position": {
             "x": 0,
@@ -599,7 +599,9 @@
               "text-halign": "top",
               "text-valign": "left",
               "width": "20",
-              "height": "20"
+              "height": "20",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
             }
           },
           {
@@ -609,11 +611,13 @@
               "background-color": "#ffaaff",
               "border-color": "#aa0055",
               "border-width": 3,
-              "label": "data(label)",
+              "label": "G",
               "text-halign": "center",
               "text-valign": "center",
               "width": "data(weight)",
-              "height": "data(weight)"
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
             }
           },
           {
@@ -623,11 +627,13 @@
               "background-color": "#92a8d1",
               "border-color": "#034f84",
               "border-width": 3,
-              "label": "data(label)",
+              "label": "V",
               "text-halign": "center",
               "text-valign": "center",
               "width": "data(weight)",
-              "height": "data(weight)"
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
             }
           },
           {
@@ -645,8 +651,7 @@
             "style": {
               "background-color": "#000000",
               "border-color": "#000000",
-              "label": "data(weight)",
-              "width": "3",
+              "width": "data(weight)",
               "line-color": "#808080",
               "curve-style": "straight",
               "target-arrow-shape": "circle",
@@ -658,8 +663,7 @@
             "style": {
               "background-color": "#000000",
               "border-color": "#000000",
-              "label": "data(weight)",
-              "width": "3",
+              "width": "data(weight)",
               "line-color": "#ff0000",
               "curve-style": "straight",
               "target-arrow-shape": "circle",
@@ -673,11 +677,13 @@
               "background-color": "#808080",
               "border-color": "#000000",
               "border-width": 2,
-              "label": "data(label)",
+              "label": "S",
               "text-halign": "center",
               "text-valign": "center",
               "width": "data(weight)",
-              "height": "data(weight)"
+              "height": "data(weight)",
+              "line-color": "#000000",
+              "target-arrow-color": "#000000"
             }
           }
         ]
