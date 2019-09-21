@@ -250,11 +250,26 @@ export class CscompComponent implements OnInit {
   //distrugge la tip per l'elemento
   destroyTip = (n) => { if (n.pRef) { n.pRef._tippy.destroy(); console.log('tip destroyed for '+n.id()) } }
 
+  isValidUrl = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  anchorize = (string) => {
+      if(this.isValidUrl(string)) return "<a href='"+string+"' target='_new'>"+string+"</a>";
+      else return string;
+
+  }
+
   //crea la tip per l'elemento
   createTip = (n) => {
 
-      let nodeContent = "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"<br/>"+n.data('weight')+"</p>";
-      let edgeContent = "<p><b>"+n.data('weight')+"</b></p>";
+      let nodeContent = "<p><b>"+n.data('class')+"</b><br/>"+this.anchorize(n.data('label'))+"<br/>"+n.data('weight')+"</p>";
+      let edgeContent = "<p><b>"+this.anchorize(n.data('label'))+"</b><br/>"+n.data('weight')+"</p>";
 
       if (n.pRef) {
         // la tip è stata creata
@@ -571,7 +586,7 @@ export class CscompComponent implements OnInit {
       animateFill: false,
       animation: 'scale',
       duration: [500,500],
-      theme: 'dark',
+      theme: 'light-border',
       interactive : true
     });
 

@@ -18,7 +18,7 @@ export class CsformComponent implements OnInit {
   private form;
 
   //definizione dei diversi form possibili
-  
+
   //nodo
   private nodeFormData;
   private nodeFormSchema;
@@ -54,40 +54,23 @@ export class CsformComponent implements OnInit {
       }
     }
 
-    /*
-    this.nodeFormData = {
-      id: "",
-      weight: 10,
-      type: "",
-      class: "node",
-      label: ""
-    };
-
-    this.edgeFormData = {
-      id: "",
-      weight: 0,
-      type: "edge",
-      class: "",
-      label: ""
-    };
-    */
-
     this.nodeFormForm = [
-        
+
         //{ key: "id", type: "text" },
         { key: "label", type: "text" },
         { key: "weight", type: "number" },
-        { key: "type", type: "text" },
+        //{ key: "type", type: "text" },
         { key: "class", type: "text" },
         { type: 'submit', title: 'Salva dati' }
-      
+
     ];
 
     this.edgeFormForm = [
-        
+
       //{ key: "id", type: "text" },
-      { key: "weight", type: "number" }
-      
+      { key: "weight", type: "number" },
+      { type: 'submit', title: 'Salva dati' }
+
   ];
 
   }
@@ -98,7 +81,7 @@ export class CsformComponent implements OnInit {
       this.data = this.nodeFormData;
       this.form = this.nodeFormForm;
       this.schema = this.nodeFormSchema;
-    } else 
+    } else
     if (t=="edge") {
       this.data = this.edgeFormData;
       this.form = this.edgeFormForm;
