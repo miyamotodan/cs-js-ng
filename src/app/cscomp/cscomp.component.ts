@@ -93,7 +93,6 @@ export class CscompComponent implements OnInit {
 
       //funzione che attende il caricamento dei dati facendo una subscribe al metodo che ritorna un promise
       this.restApi.getGraphs().subscribe((data: {}) => {
-        if (this.cy) this.cy.elements().remove();
 
         //per ora prendo il primo grafo
         this.G=new Graph();
@@ -105,7 +104,16 @@ export class CscompComponent implements OnInit {
         console.log("cscomp.load : " + this.G.id + ", " + this.G.name + ", " + this.G.graph.length);
 
         //se il caricamento è successivo a OnInit (da menù) cy già esiste altrimenti no
-        if (this.cy) this.setGraph();
+        if (this.cy) {
+
+          //rimuovo tutti i tip
+          this.cy.elements().forEach ( (e) => { this.destroyTip(e); } );
+          //rimuovo tutti gli elementi
+          this.cy.elements().remove();
+
+          this.setGraph();
+
+        }
 
         //fine del task asincrono (senza ritorno di valore)
         resolve();
@@ -239,68 +247,93 @@ export class CscompComponent implements OnInit {
 
   }
 
+  //distrugge la tip per l'elemento
+  destroyTip = (n) => { if (n.pRef) { n.pRef._tippy.destroy(); console.log('tip destroyed for '+n.id()) } }
+
+  //crea la tip per l'elemento
+  createTip = (n) => {
+
+      let nodeContent = "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"<br/>"+n.data('weight')+"</p>";
+      let edgeContent = "<p><b>"+n.data('weight')+"</b></p>";
+
+      if (n.pRef) {
+        // la tip è stata creata
+
+        if (n.data('type')=='node') {
+          n.pRef._tippy.setContent(nodeContent)
+          console.log('tip updated for node '+n.id())
+        } else
+        if (n.data('type')=='edge') {
+          n.pRef._tippy.setContent(edgeContent)
+          console.log('tip updated for edge '+n.id())
+        }
+
+      } else {
+        // la tip non c'è
+        let ref = n.popperRef(); // used only for positioning
+
+        if (n.data('type')=='node') {
+          tippy(ref, { content: nodeContent } );
+          //salvo un riferimento al tip
+          n.pRef=ref;
+          console.log('tip created for node '+n.id())
+        } else
+        if (n.data('type')=='edge') {
+          tippy(ref, { content: edgeContent } );
+          //salvo un riferimento al tip
+          n.pRef=ref;
+          console.log('tip created for edge '+n.id())
+        }
+
+      }
+
+  }
+
+  manageTip = (n)  => {
+
+    n.on('tap', () => {
+      if (n.pRef) {
+        if (n.pRef._tippy.state.isVisible)
+          n.pRef._tippy.hide();
+          //this.destroyTip(n);
+        else {
+          this.createTip(n);
+          n.pRef._tippy.show();
+        }
+      } else {
+        this.createTip(n);
+        n.pRef._tippy.show();
+      }
+    });
+
+  }
 
   setGraph = () => {
 
     //aggiungo gli elementi al grafo corrente
-    if (this.cy) this.cy.add(this.G.graph);
+    this.cy.add(this.G.graph);
 
     //aggiorno gli stili
-    if (this.cy) this.cy.style(this.G.options.styles);
+    this.cy.style(this.G.options.styles);
 
     //aggiorno il layout
-    if (this.cy)  {
+    let lyo = this.cy.layout({name: this.G.options.layout});
+    //lyo.run();
 
-      let lyo = this.cy.layout({name: this.G.options.layout});
-      //lyo.run();
-
-      console.log ("layuout:"+this.G.options.layout);
-
-    }
+    console.log ("layuout:"+this.G.options.layout);
 
     //************ TEST cytoscape-popper  + tippy
 
-      tippy.setDefaults({
-        distance:20,
-        arrow: true,
-        placement: 'top',
-        hideOnClick: false,
-        multiple: false,
-        sticky: true,
-        animateFill: false,
-        animation: 'scale',
-        duration: [500,500],
-        theme: 'dark',
-        interactive : true
-      })
+    //gestisco i tip per tutti i nodi
+    this.cy.nodes().forEach( (n) => { this.manageTip(n) } );
 
-      //creo i tip per tutti i nodi, forse sarebbe meglio farli solo su richiesta (se ci sono molti nodi)
-      this.cy.nodes().forEach(
-        (n) => {
-          let ref = n.popperRef(); // used only for positioning
-          let t : any = tippy(ref, { content: "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"</p>" } );
-          n.on('tap', () => { console.log(t.state); if (!t.state.isVisible) t.show(); else t.hide(); } );
-          //salvo un riferimento al tip
-          n._tippy=t;
-        }
-      )
-
-      //creo i tip per tutti gli archi, forse sarebbe meglio farli solo su richiesta (se ci sono molti archi)
-      this.cy.edges().forEach(
-        (e) => {
-          let ref = e.popperRef(); // used only for positioning
-          let t : any = tippy(ref, { content: "<p><b>"+e.data('weight')+"</b></p>" } );
-          e.on('tap', () => { console.log(t.state); if (!t.state.isVisible) t.show(); else t.hide(); } );
-          //salvo un riferimento al tip
-          e._tippy=t;
-        }
-      )
-
+    //gestisco i tip per tutti gli archi
+    this.cy.edges().forEach( (e) => { this.manageTip(e) } );
 
     //************
 
     //calcolo i valori riassuntivi
-    if (this.cy) this.computeValues();
+    this.computeValues();
 
   }
 
@@ -485,7 +518,7 @@ export class CscompComponent implements OnInit {
     this.cy.on("cxttapstart taphold", function (event) {
       console.log("cxttapstart taphold");
       var n = event.target;
-      if (n._tippy && n._tippy.state.isVisible) n._tippy.hide();
+      if (n.pRef && n.pRef._tippy.state.isVisible) n.pRef._tippy.hide();
     });
 
 
@@ -527,11 +560,22 @@ export class CscompComponent implements OnInit {
 
     });
 
+    //defaults per le tip
+    tippy.setDefaults({
+      distance:20,
+      arrow: true,
+      placement: 'top',
+      hideOnClick: false,
+      multiple: false,
+      sticky: true,
+      animateFill: false,
+      animation: 'scale',
+      duration: [500,500],
+      theme: 'dark',
+      interactive : true
+    });
 
-
-    /**
-     * IMPOSTO I MENU CONTESTUALI
-     */
+    // MENU CONTESTUALI
 
     // the default values of each option are outlined below:
     let defaultsNode = {
