@@ -268,8 +268,8 @@ export class CscompComponent implements OnInit {
   //crea la tip per l'elemento
   createTip = (n) => {
 
-      let nodeContent = "<p><b>"+n.data('class')+"</b><br/>"+this.anchorize(n.data('label'))+"<br/>"+n.data('weight')+"</p>";
-      let edgeContent = "<p><b>"+this.anchorize(n.data('label'))+"</b><br/>"+n.data('weight')+"</p>";
+      let nodeContent = "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"<br/>"+this.anchorize(n.data('uri'))+"</p>";
+      let edgeContent = "<p><b>"+n.data('class')+"</b><br/>"+n.data('label')+"</br>"+this.anchorize(n.data('uri'))+"</p>";
 
       if (n.pRef) {
         // la tip è stata creata
@@ -587,7 +587,8 @@ export class CscompComponent implements OnInit {
       animation: 'scale',
       duration: [500,500],
       theme: 'light-border',
-      interactive : true
+      interactive : true,
+      maxWidth : 500
     });
 
     // MENU CONTESTUALI
