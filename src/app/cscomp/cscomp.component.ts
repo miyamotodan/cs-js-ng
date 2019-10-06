@@ -340,7 +340,7 @@ export class CscompComponent implements OnInit {
     //************ TEST cytoscape-popper  + tippy
 
     //gestisco i tip per tutti i nodi
-    this.cy.nodes().forEach( (n) => { this.manageTip(n) } );
+    this.cy.nodes().forEach( (n) => { if(n.data('class')=='Class' || n.data('class')=='_blank' ) this.manageTip(n) } );
 
     //gestisco i tip per tutti gli archi
     this.cy.edges().forEach( (e) => { this.manageTip(e) } );
