@@ -30,7 +30,7 @@
     "cytoscape-cxtmenu": "^3.1.0",
     "cytoscape-popper": "^1.0.4",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "rxjs": "~6.3.3",
     "tippy.js": "^4.3.5",
     "tslib": "^1.9.0",
